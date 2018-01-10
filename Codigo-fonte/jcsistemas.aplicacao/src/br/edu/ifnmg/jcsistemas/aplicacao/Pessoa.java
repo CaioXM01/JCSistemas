@@ -19,7 +19,7 @@ public class Pessoa {
     private String nome, registro, cadastro, tipo, relacao;
     private Date nascimento;
     private long endereco;
-
+    public Pessoa(){}
     public Pessoa(String nome, String registro, String cadastro, String tipo, String relacao, Date nascimento, Long endereco) {
         this.nome = nome;
         this.registro = registro;

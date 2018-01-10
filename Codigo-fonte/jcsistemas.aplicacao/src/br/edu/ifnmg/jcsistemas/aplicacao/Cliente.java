@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package br.edu.ifnmg.jcsistemas.aplicacao;
-
 import java.util.Date;
 
 /**
@@ -12,9 +11,11 @@ import java.util.Date;
  * @author victor
  */
 public class Cliente extends PessoaFisica{
-    
+    public Cliente(){
+        
+    }
     public Cliente(String cpf, String rg, long id, String nome, Date nascimento, Long endereco) {
         super(cpf, rg, id, nome, "cliente", nascimento, endereco);
     }
-    
+ 
 }

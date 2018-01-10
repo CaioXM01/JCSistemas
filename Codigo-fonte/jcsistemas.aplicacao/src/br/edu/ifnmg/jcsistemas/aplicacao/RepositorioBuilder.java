@@ -33,21 +33,18 @@ public class RepositorioBuilder {
  private static ClienteRepositorio cliente;
     
     public static ClienteRepositorio getClienteRepositorio(){
+        
         if(cliente == null){
          
-                
+            try {    
                 // Carrega a classe
-                Class obj = null;
-            try {
-                obj = Class.forName(prop.getProperty("ClienteRepositorio"));
+                  Class obj = Class.forName(prop.getProperty("ClienteRepositorio"));
+            
+                  cliente = (ClienteRepositorio)obj.newInstance();
             } catch (ClassNotFoundException ex) {
                 java.util.logging.Logger.getLogger(RepositorioBuilder.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            }
-                
-            try {
-                // Cria uma nova instância da classe
-                cliente = (ClienteRepositorio)obj.newInstance();
-            } catch (InstantiationException | IllegalAccessException ex) {
+            }   
+            catch (InstantiationException | IllegalAccessException ex) {
                 java.util.logging.Logger.getLogger(RepositorioBuilder.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
             }
                 

@@ -178,6 +178,6 @@ public class TelaEditarCliente extends FormBuscar<Cliente> {
 
     @Override
     protected Cliente novaEntidade() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return new Cliente();
     }
 }

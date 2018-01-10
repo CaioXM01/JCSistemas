@@ -16,6 +16,10 @@ public class PessoaFisica extends Pessoa implements Entidade{
     private String cpf, rg;
     private static Pattern regex_cpf = Pattern.compile("^\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}$");
 
+    public PessoaFisica() {
+        
+    }
+    
     public PessoaFisica(String cpf, String rg, long id, String nome, String relacao, Date nascimento, Long endereco) {
         super(nome, rg, cpf, "fisica", relacao, nascimento, endereco);
     }

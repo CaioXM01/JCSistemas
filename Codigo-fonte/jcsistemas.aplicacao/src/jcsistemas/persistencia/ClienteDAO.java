@@ -27,7 +27,7 @@ public class ClienteDAO extends DAOGenerico<Cliente> implements ClienteRepositor
 
     @Override
     protected String consultaInsert() {
-        return "insert into Clientes(nome, cpf, nascimento) values(?,?,?)";
+        return "insert into clientes(nome, cpf) values(?,?)";
     }
 
     @Override
@@ -51,7 +51,7 @@ public class ClienteDAO extends DAOGenerico<Cliente> implements ClienteRepositor
             
             consulta.setString(1, obj.getNome());
             consulta.setString(2, obj.getCpf().replace(".", "").replace("-", ""));
-            consulta.setDate(3, new Date(obj.getNascimento().getTime()));
+            /*consulta.setDate(3, new Date(obj.getNascimento().getTime()));*/
             
             if(obj.getId() > 0)
                 consulta.setLong(4, obj.getId());

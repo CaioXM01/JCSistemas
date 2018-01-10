@@ -7,7 +7,9 @@ package br.edu.ifnmg.jcsistemas.apresentacao;
 import br.edu.ifnmg.jcsistemas.aplicacao.Cliente;
 import br.edu.ifnmg.jcsistemas.aplicacao.RepositorioBuilder;
 import br.edu.ifnmg.jcsistemas.aplicacao.ViolacaoRegraNegocioException;
-
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -21,6 +23,7 @@ public class TelaCadastrarCliente extends FormEditar<Cliente> {
      */
     public TelaCadastrarCliente() {
         initComponents();
+        entidade = new Cliente();
         setRepositorio(RepositorioBuilder.getClienteRepositorio());
     }
 
@@ -93,6 +96,12 @@ public class TelaCadastrarCliente extends FormEditar<Cliente> {
         });
 
         jLabel12.setText("Rua / Av. : ");
+
+        txtNome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNomeActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("RG : ");
 
@@ -301,6 +310,10 @@ public class TelaCadastrarCliente extends FormEditar<Cliente> {
         this.setVisible(false);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
+    private void txtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNomeActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
@@ -340,8 +353,11 @@ public class TelaCadastrarCliente extends FormEditar<Cliente> {
 
     @Override
     protected void carregaObjeto() throws ViolacaoRegraNegocioException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            entidade.setNome( txtNome.getText() );
+            entidade.setCpf(txtCpf.getText());
+            /*entidade.setNascimento( df.parse( txtData.getText() ) );*/
     }
+    
 
     @Override
     protected void carregaCampos() {

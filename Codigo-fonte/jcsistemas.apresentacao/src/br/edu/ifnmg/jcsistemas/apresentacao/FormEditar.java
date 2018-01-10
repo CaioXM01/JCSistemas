@@ -54,10 +54,7 @@ public abstract class FormEditar<T extends Entidade> extends javax.swing.JIntern
         this.setVisible(false);
     }
     
-    protected void salvar() {
-        if(JOptionPane.showConfirmDialog(this, "Deseja realmente salvar os dados?","Confirmação",
-                JOptionPane.YES_NO_OPTION) == 0) {
-            
+    protected void salvar() {         
             try {
                 carregaObjeto();
                 
@@ -70,7 +67,7 @@ public abstract class FormEditar<T extends Entidade> extends javax.swing.JIntern
                 JOptionPane.showMessageDialog(rootPane, ex.getMessage());
                 
             }
-        }
+        
     }
     
     protected void apagar() {                                          
