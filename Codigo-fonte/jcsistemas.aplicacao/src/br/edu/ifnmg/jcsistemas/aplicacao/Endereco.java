@@ -11,17 +11,17 @@ import java.util.Objects;
  *
  * @author victor
  */
-public class Endereco {
-    private long id, estado, numero;
-    private String rua, bairro,complemento, cidade;
+public class Endereco implements Entidade{
+    private long id, numero;
+    private String rua, bairro,complemento, cidade, estado, cep;
 
     @Override
     public int hashCode() {
         int hash = 7;
         hash = 97 * hash + (int) (this.id ^ (this.id >>> 32));
-        hash = 97 * hash + (int) (this.estado ^ (this.estado >>> 32));
         hash = 97 * hash + (int) (this.numero ^ (this.numero >>> 32));
         hash = 97 * hash + Objects.hashCode(this.rua);
+         hash = 97 * hash + Objects.hashCode(this.estado);
         hash = 97 * hash + Objects.hashCode(this.bairro);
         hash = 97 * hash + Objects.hashCode(this.complemento);
         hash = 97 * hash + Objects.hashCode(this.cidade);
@@ -43,13 +43,13 @@ public class Endereco {
         if (this.id != other.id) {
             return false;
         }
-        if (this.estado != other.estado) {
-            return false;
-        }
         if (this.numero != other.numero) {
             return false;
         }
         if (!Objects.equals(this.rua, other.rua)) {
+            return false;
+        }
+         if (!Objects.equals(this.estado, other.estado)) {
             return false;
         }
         if (!Objects.equals(this.bairro, other.bairro)) {
@@ -68,8 +68,8 @@ public class Endereco {
     public String toString() {
         return "Endereco{" + "id=" + id + ", estado=" + estado + ", numero=" + numero + ", rua=" + rua + ", bairro=" + bairro + ", complemento=" + complemento + ", cidade=" + cidade + '}';
     }
-
-    public Endereco(long id, long estado, long numero, String rua, String bairro, String complemento, String cidade) {
+    public Endereco(){};
+    public Endereco(long id, String estado, long numero, String rua, String bairro, String complemento, String cidade,  String cep) {
         this.id = id;
         this.estado = estado;
         this.numero = numero;
@@ -77,6 +77,7 @@ public class Endereco {
         this.bairro = bairro;
         this.complemento = complemento;
         this.cidade = cidade;
+        this.cep= cep;
     }
 
     public long getId() {
@@ -87,11 +88,11 @@ public class Endereco {
         this.id = id;
     }
 
-    public long getEstado() {
+    public String getEstado() {
         return estado;
     }
 
-    public void setEstado(long estado) {
+    public void setEstado(String estado) {
         this.estado = estado;
     }
 
@@ -113,6 +114,14 @@ public class Endereco {
 
     public String getBairro() {
         return bairro;
+    }
+
+    public String getCep() {
+        return cep;
+    }
+
+    public void setCep(String cep) {
+        this.cep = cep;
     }
 
     public void setBairro(String bairro) {

@@ -12,9 +12,9 @@ import java.util.Date;
  * @author victor
  */
 public class Fornecedor extends PessoaJuridica {
-
-    public Fornecedor(String cnpj, String inscriEstadual, String nome, String relacao, Date nascimento, Long endereco) {
-        super(cnpj, inscriEstadual, nome, "fornecedor", nascimento, endereco);
+    public Fornecedor(){}
+    public Fornecedor(String cnpj, String inscriEstadual, String nome,  Date nascimento, long endereco, long id, String email, String telefone) {
+        super(cnpj, inscriEstadual, nome, nascimento, endereco, id, email, telefone);
     }
     
 }

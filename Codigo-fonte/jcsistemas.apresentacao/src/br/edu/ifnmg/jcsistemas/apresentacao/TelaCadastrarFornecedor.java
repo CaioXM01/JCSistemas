@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package br.edu.ifnmg.jcsistemas.apresentacao;
-import br.edu.ifnmg.jcsistemas.aplicacao.Cliente;
+import br.edu.ifnmg.jcsistemas.aplicacao.Fornecedor;
 import br.edu.ifnmg.jcsistemas.aplicacao.RepositorioBuilder;
 import br.edu.ifnmg.jcsistemas.aplicacao.Endereco;
 import br.edu.ifnmg.jcsistemas.aplicacao.EnderecoRepositorio;
@@ -18,17 +18,17 @@ import javax.swing.JOptionPane;
  *
  * @author victor
  */
-public class TelaCadastrarCliente extends FormEditar<Cliente> {
+public class TelaCadastrarFornecedor extends FormEditar<Fornecedor> {
         EnderecoRepositorio endereco = RepositorioBuilder.getEnderecoRepositorio();
         Endereco a = new Endereco();
     /**
      * Creates new form TelaCadastrarCliente
      */
-    public TelaCadastrarCliente() {
+    public TelaCadastrarFornecedor() {
         initComponents();
-        entidade = new Cliente();
+        entidade = new Fornecedor();
         
-        setRepositorio(RepositorioBuilder.getClienteRepositorio());
+        setRepositorio(RepositorioBuilder.getFornecedorRepositorio());
     }
 
     /**
@@ -43,7 +43,7 @@ public class TelaCadastrarCliente extends FormEditar<Cliente> {
         jLabel15 = new javax.swing.JLabel();
         txtComplemento = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        txtDataNasc = new javax.swing.JFormattedTextField();
+        txtDataFundacao = new javax.swing.JFormattedTextField();
         jLabel7 = new javax.swing.JLabel();
         txtEmail = new javax.swing.JFormattedTextField();
         jLabel9 = new javax.swing.JLabel();
@@ -57,11 +57,11 @@ public class TelaCadastrarCliente extends FormEditar<Cliente> {
         txtRua = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        txtRg = new javax.swing.JTextField();
+        txtInscriEstadual = new javax.swing.JTextField();
         txtBairro = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         btnVoltar = new javax.swing.JButton();
-        txtCpf = new javax.swing.JFormattedTextField();
+        txtCnpj = new javax.swing.JFormattedTextField();
         btnCancelar = new javax.swing.JButton();
         jLabel14 = new javax.swing.JLabel();
         txtNumero = new javax.swing.JTextField();
@@ -73,7 +73,7 @@ public class TelaCadastrarCliente extends FormEditar<Cliente> {
 
         jLabel15.setText("Complemento : ");
 
-        jLabel6.setText("Data de Nascimento : ");
+        jLabel6.setText("Data de Fundação : ");
 
         jLabel7.setText("Email : ");
 
@@ -98,11 +98,11 @@ public class TelaCadastrarCliente extends FormEditar<Cliente> {
             }
         });
 
-        jLabel2.setText("RG : ");
+        jLabel2.setText("Inscrição : ");
 
         jLabel13.setText("Bairro : ");
 
-        jLabel3.setText("CPF : ");
+        jLabel3.setText("CNPJ : ");
 
         btnVoltar.setText("Voltar");
         btnVoltar.addActionListener(new java.awt.event.ActionListener() {
@@ -173,26 +173,25 @@ public class TelaCadastrarCliente extends FormEditar<Cliente> {
                                         .addComponent(txtBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(48, 48, 48)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel3))
-                                .addGap(37, 37, 37)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtRg, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
-                                    .addComponent(txtCpf)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(123, 123, 123)
-                                .addComponent(txtDataNasc, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 178, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 212, Short.MAX_VALUE)
                                 .addComponent(jLabel14)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtDataFundacao, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(48, 48, 48)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel2)
+                                            .addComponent(jLabel3))
+                                        .addGap(37, 37, 37)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(txtInscriEstadual, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
+                                            .addComponent(txtCnpj)))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel15)
@@ -226,10 +225,10 @@ public class TelaCadastrarCliente extends FormEditar<Cliente> {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(txtRg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtInscriEstadual, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3)
                             .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7))))
@@ -255,7 +254,7 @@ public class TelaCadastrarCliente extends FormEditar<Cliente> {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel6)
                         .addGap(12, 12, 12)
-                        .addComponent(txtDataNasc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtDataFundacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel15)
                         .addGap(18, 18, 18)
@@ -291,7 +290,7 @@ public class TelaCadastrarCliente extends FormEditar<Cliente> {
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
-        TelaEditarCliente tela = new TelaEditarCliente();
+        TelaEditarFornecedor tela = new TelaEditarFornecedor();
         this.getParent().add(tela);
         tela.setVisible(true);
         this.setVisible(false);
@@ -349,14 +348,14 @@ public class TelaCadastrarCliente extends FormEditar<Cliente> {
     private javax.swing.JTextField txtBairro;
     private javax.swing.JFormattedTextField txtCep;
     private javax.swing.JTextField txtCidade;
+    private javax.swing.JFormattedTextField txtCnpj;
     private javax.swing.JTextField txtComplemento;
-    private javax.swing.JFormattedTextField txtCpf;
-    private javax.swing.JFormattedTextField txtDataNasc;
+    private javax.swing.JFormattedTextField txtDataFundacao;
     private javax.swing.JFormattedTextField txtEmail;
     private javax.swing.JTextField txtEstado;
+    private javax.swing.JTextField txtInscriEstadual;
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtNumero;
-    private javax.swing.JTextField txtRg;
     private javax.swing.JTextField txtRua;
     private javax.swing.JTextField txtTelefone;
     // End of variables declaration//GEN-END:variables
@@ -364,8 +363,8 @@ public class TelaCadastrarCliente extends FormEditar<Cliente> {
     @Override
     protected void carregaObjeto() throws ViolacaoRegraNegocioException {
             entidade.setNome( txtNome.getText() );
-            entidade.setCpf(txtCpf.getText());
-            entidade.setRg(txtRg.getText());
+            entidade.setCnpj(txtCnpj.getText());
+            entidade.setInscriEstadual(txtInscriEstadual.getText());
             entidade.setTelefone(txtTelefone.getText());
             entidade.setEmail(txtEmail.getText());
             /*entidade.setNascimento( df.parse( txtData.getText() ) );*/
@@ -387,9 +386,9 @@ public class TelaCadastrarCliente extends FormEditar<Cliente> {
     @Override
     protected void carregaCampos() {
        txtNome.setText(entidade.getNome());
-       txtCpf.setText(entidade.getCpf());
+       txtCnpj.setText(entidade.getCnpj());
        //txtData.setText( df.format(entidade.getNascimento()) );
-       txtRg.setText(entidade.getRg());
+       txtInscriEstadual.setText(entidade.getInscriEstadual());
        txtTelefone.setText(entidade.getTelefone());
        txtEmail.setText(entidade.getEmail()); 
        Endereco obj = RepositorioBuilder.getEnderecoRepositorio().Abrir(entidade.getEndereco());

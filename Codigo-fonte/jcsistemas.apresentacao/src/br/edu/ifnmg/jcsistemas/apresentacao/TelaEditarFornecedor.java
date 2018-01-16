@@ -6,7 +6,7 @@
 package br.edu.ifnmg.jcsistemas.apresentacao;
 import br.edu.ifnmg.jcsistemas.aplicacao.Endereco;
 import br.edu.ifnmg.jcsistemas.aplicacao.EnderecoRepositorio;
-import br.edu.ifnmg.jcsistemas.aplicacao.Cliente;
+import br.edu.ifnmg.jcsistemas.aplicacao.Fornecedor;
 import br.edu.ifnmg.jcsistemas.aplicacao.RepositorioBuilder;
 import br.edu.ifnmg.jcsistemas.aplicacao.ViolacaoRegraNegocioException;
 import java.util.List;
@@ -20,16 +20,16 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author victor
  */
-public class TelaEditarCliente extends FormBuscar<Cliente> {
+public class TelaEditarFornecedor extends FormBuscar<Fornecedor> {
     EnderecoRepositorio endereco = RepositorioBuilder.getEnderecoRepositorio();
     Endereco a = new Endereco();
     /**
      * Creates new form TelaEditarCliente
      */
-    public TelaEditarCliente() {
+    public TelaEditarFornecedor() {
         initComponents();
-        setEditar(new TelaCadastrarCliente());
-        setRepositorio(RepositorioBuilder.getClienteRepositorio());
+        setEditar(new TelaCadastrarFornecedor());
+        setRepositorio(RepositorioBuilder.getFornecedorRepositorio());
     }
 
     /**
@@ -49,7 +49,7 @@ public class TelaEditarCliente extends FormBuscar<Cliente> {
         txtNome = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         btnNovo = new javax.swing.JButton();
-        txtCpf = new javax.swing.JFormattedTextField();
+        txtCnpj = new javax.swing.JTextField();
 
         setClosable(true);
         setMaximizable(true);
@@ -94,7 +94,7 @@ public class TelaEditarCliente extends FormBuscar<Cliente> {
             }
         });
 
-        jLabel3.setText("CPF : ");
+        jLabel3.setText("CNPJ : ");
 
         btnNovo.setText("Novo");
         btnNovo.addActionListener(new java.awt.event.ActionListener() {
@@ -103,9 +103,9 @@ public class TelaEditarCliente extends FormBuscar<Cliente> {
             }
         });
 
-        txtCpf.addActionListener(new java.awt.event.ActionListener() {
+        txtCnpj.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCpfActionPerformed(evt);
+                txtCnpjActionPerformed(evt);
             }
         });
 
@@ -113,54 +113,47 @@ public class TelaEditarCliente extends FormBuscar<Cliente> {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(358, Short.MAX_VALUE)
-                .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(189, 189, 189))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addComponent(jLabel1)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(btnBuscar)
-                                    .addGap(141, 141, 141)
-                                    .addComponent(btnCancelar)
-                                    .addGap(157, 157, 157)
-                                    .addComponent(btnNovo))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                    .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jLabel3)
-                                    .addGap(214, 214, 214)))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 182, Short.MAX_VALUE))
-                        .addComponent(jScrollPane1))
-                    .addContainerGap()))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnBuscar)
+                                .addGap(141, 141, 141)
+                                .addComponent(btnCancelar)
+                                .addGap(157, 157, 157)
+                                .addComponent(btnNovo)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 182, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel3)
+                                .addGap(26, 26, 26)
+                                .addComponent(txtCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(163, 163, 163))))
+                    .addComponent(jScrollPane1))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(365, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel1)
-                        .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel3))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnCancelar)
-                        .addComponent(btnNovo)
-                        .addComponent(btnBuscar))
-                    .addGap(18, 18, 18)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap()))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addComponent(txtCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCancelar)
+                    .addComponent(btnNovo)
+                    .addComponent(btnBuscar))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -175,7 +168,7 @@ public class TelaEditarCliente extends FormBuscar<Cliente> {
     }//GEN-LAST:event_txtNomeActionPerformed
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
-        TelaCadastrarCliente tela = new TelaCadastrarCliente();
+        TelaCadastrarFornecedor tela = new TelaCadastrarFornecedor();
         this.getParent().add(tela);
         tela.setVisible(true);
         this.setVisible(false);
@@ -185,10 +178,6 @@ public class TelaEditarCliente extends FormBuscar<Cliente> {
         buscar();
     }//GEN-LAST:event_btnBuscarActionPerformed
 
-    private void txtCpfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCpfActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCpfActionPerformed
-
     private void tabResultadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabResultadoMouseClicked
        int linha = tabResultado.getSelectedRow();
         
@@ -196,6 +185,10 @@ public class TelaEditarCliente extends FormBuscar<Cliente> {
         
         editar(id);
     }//GEN-LAST:event_tabResultadoMouseClicked
+
+    private void txtCnpjActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCnpjActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCnpjActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -206,12 +199,12 @@ public class TelaEditarCliente extends FormBuscar<Cliente> {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tabResultado;
-    private javax.swing.JFormattedTextField txtCpf;
+    private javax.swing.JTextField txtCnpj;
     private javax.swing.JTextField txtNome;
     // End of variables declaration//GEN-END:variables
 
     @Override
-    protected void preencherTabela(List<Cliente> dados) {
+    protected void preencherTabela(List<Fornecedor> dados) {
         DefaultTableModel modelo = new DefaultTableModel();
             
         modelo.addColumn("ID");
@@ -229,12 +222,12 @@ public class TelaEditarCliente extends FormBuscar<Cliente> {
         modelo.addColumn("Bairro");
         modelo.addColumn("Estado");
         modelo.addColumn("Cep");
-        for(Cliente c : dados){
+        for(Fornecedor c : dados){
             Vector valores = new Vector();
             valores.add(c.getId());
             valores.add(c.getNome());
-            valores.add(c.getCpf());
-            valores.add(c.getRg());
+            valores.add(c.getCnpj());
+            valores.add(c.getInscriEstadual());
             valores.add(c.getNascimento());
             valores.add(c.getEmail());
             valores.add(c.getTelefone());
@@ -255,24 +248,24 @@ public class TelaEditarCliente extends FormBuscar<Cliente> {
     }
 
     @Override
-    protected Cliente carregaFiltro() {
-         try {
-            Cliente filtro = new Cliente();
+    protected Fornecedor carregaFiltro() {
+         //try {
+            Fornecedor filtro = new Fornecedor();
             
             if(!txtNome.getText().isEmpty())
                 filtro.setNome(txtNome.getText());
-            if(txtCpf.getValue() != null)
-                filtro.setCpf(txtCpf.getText());
+            if(txtCnpj.getText().isEmpty())
+                filtro.setCnpj(txtCnpj.getText());
             return filtro;
-        } catch (ViolacaoRegraNegocioException ex) {
-            Logger.getLogger(TelaEditarCliente.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
+        /*} catch (ViolacaoRegraNegocioException ex) {
+            Logger.getLogger(TelaEditarFornecedor.class.getName()).log(Level.SEVERE, null, ex);
+        }*/
+        //return null;
     }
 
     @Override
-    protected Cliente novaEntidade() {
-        return new Cliente();
+    protected Fornecedor novaEntidade() {
+        return new Fornecedor();
     }
    
 }

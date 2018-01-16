@@ -36,7 +36,6 @@ public abstract class FormEditar<T extends Entidade> extends javax.swing.JIntern
         
         carregaCampos();
     }
-
     public Repositorio<T> getRepositorio() {
         return repositorio;
     }
@@ -49,7 +48,7 @@ public abstract class FormEditar<T extends Entidade> extends javax.swing.JIntern
     
     protected abstract void carregaCampos();
     
-    protected void cancelar(){
+    public void cancelar(){
         this.getBuscar().setVisible(true);
         this.setVisible(false);
     }
@@ -58,11 +57,12 @@ public abstract class FormEditar<T extends Entidade> extends javax.swing.JIntern
             try {
                 carregaObjeto();
                 
-                if(getRepositorio().Salvar(entidade))            
+                if(getRepositorio().Salvar(entidade)){            
                     JOptionPane.showMessageDialog(rootPane, "Dados salvos com sucesso!");
-                else
+                    
+                }else{              
                     JOptionPane.showMessageDialog(rootPane, "Falha ao salvar os dados! Informe o administrador do sistema.");
-            } catch (ViolacaoRegraNegocioException ex) {
+                } } catch (ViolacaoRegraNegocioException ex) {
                 
                 JOptionPane.showMessageDialog(rootPane, ex.getMessage());
                 
@@ -76,7 +76,7 @@ public abstract class FormEditar<T extends Entidade> extends javax.swing.JIntern
             return;
         }
         
-        if(JOptionPane.showConfirmDialog(this, "Deseja realmente salvar os dados?","Confirmação",
+        if(JOptionPane.showConfirmDialog(this, "Deseja realmente APAGAR os dados?","Confirmação",
                 JOptionPane.YES_NO_OPTION) == 0) {
             
             if(getRepositorio().Apagar(entidade))  {          

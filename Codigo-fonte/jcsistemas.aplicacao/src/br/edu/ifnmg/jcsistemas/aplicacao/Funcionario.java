@@ -13,23 +13,32 @@ import java.util.Date;
  * @author victor
  */
 public class Funcionario extends PessoaFisica{
-    private String funcao;
+    private String cargo, senha;
     private Double salario;
 
-    public Funcionario(String funcao, Double salario, String cpf, String rg, long id, String nome, Date nascimento, Long endereco) {
-        super(cpf, rg, id, nome, "funcionario", nascimento, endereco);
-        this.funcao = funcao;
+    public Funcionario(String cargo, Double salario, String cpf, String rg, long id, String nome, Date nascimento, long endereco, String email, String telefone, String senha) {
+        super(cpf, rg, id, nome, nascimento, endereco, email, telefone);
+        this.cargo = cargo;
         this.salario = salario;
+        this.senha = senha;
     }
 
-    public String getFuncao() {
-        return funcao;
+
+    public String getCargo() {
+        return cargo;
     }
 
-    public void setFuncao(String funcao) {
-        this.funcao = funcao;
+    public void setCargo(String cargo) {
+        this.cargo = cargo;
     }
 
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
     public Double getSalario() {
         return salario;
     }
@@ -40,7 +49,7 @@ public class Funcionario extends PessoaFisica{
 
     @Override
     public String toString() {
-        return "Funcionario{" + "funcao=" + funcao + ", salario=" + salario + '}';
+        return "Funcionario{" + "cargo=" + cargo + ", salario=" + salario + '}';
     }
     
     
