@@ -9,8 +9,6 @@ package br.edu.ifnmg.jcsistemas.aplicacao;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 
 /**
@@ -55,18 +53,18 @@ public class RepositorioBuilder {
         return cliente;
     }
     
+        //Endereco
+    private static EnderecoRepositorio endereco;
     
-     private static ProdutoRepositorio produto;
-    
-    public static ProdutoRepositorio getProdutoRepositorio(){
+    public static EnderecoRepositorio getEnderecoRepositorio(){
         
-        if(produto == null){
+        if(endereco == null){
          
             try {    
                 // Carrega a classe
-                  Class obj = Class.forName(prop.getProperty("ProdutoRepositorio"));
+                  Class obj = Class.forName(prop.getProperty("EnderecoRepositorio"));
             
-                  produto = (ProdutoRepositorio)obj.newInstance();
+                  endereco = (EnderecoRepositorio)obj.newInstance();
             } catch (ClassNotFoundException ex) {
                 java.util.logging.Logger.getLogger(RepositorioBuilder.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
             }   
@@ -76,20 +74,23 @@ public class RepositorioBuilder {
                 
            
         }
-        return produto;
+        return endereco;
     }
     
-     private static ServicoRepositorio servico;
     
-    public static ServicoRepositorio getServicoRepositorio(){
+    
+    //Fornecedor
+    private static FornecedorRepositorio fornecedor;
+    
+    public static FornecedorRepositorio getFornecedorRepositorio(){
         
-        if(servico == null){
+        if(fornecedor == null){
          
             try {    
                 // Carrega a classe
-                  Class obj = Class.forName(prop.getProperty("ServicoRepositorio"));
+                  Class obj = Class.forName(prop.getProperty("FornecedorRepositorio"));
             
-                  servico = (ServicoRepositorio)obj.newInstance();
+                  fornecedor = (FornecedorRepositorio)obj.newInstance();
             } catch (ClassNotFoundException ex) {
                 java.util.logging.Logger.getLogger(RepositorioBuilder.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
             }   
@@ -99,37 +100,33 @@ public class RepositorioBuilder {
                 
            
         }
-        return servico;
+        return fornecedor;
     }
     
-    private static NotaVendaRepositorio venda;
     
-    public static NotaVendaRepositorio getNotaVendaRepositorio(){
-        if(venda == null){
-            try {
-                
+    
+     //Funcionario
+    private static FuncionarioRepositorio funcionario;
+    
+    public static FuncionarioRepositorio getFuncionarioRepositorio(){
+        
+        if(funcionario == null){
+         
+            try {    
                 // Carrega a classe
-                Class obj = Class.forName(prop.getProperty("VendaRepositorio"));
-                
-                // Cria uma nova instância da classe
-                venda = (NotaVendaRepositorio)obj.newInstance();
-                
+                  Class obj = Class.forName(prop.getProperty("FuncionarioRepositorio"));
+            
+                  funcionario = (FuncionarioRepositorio)obj.newInstance();
             } catch (ClassNotFoundException ex) {
-                Logger.getLogger(RepositorioBuilder.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (InstantiationException ex) {
-                Logger.getLogger(RepositorioBuilder.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IllegalAccessException ex) {
-                Logger.getLogger(RepositorioBuilder.class.getName()).log(Level.SEVERE, null, ex);
+                java.util.logging.Logger.getLogger(RepositorioBuilder.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            }   
+            catch (InstantiationException | IllegalAccessException ex) {
+                java.util.logging.Logger.getLogger(RepositorioBuilder.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
             }
+                
+           
         }
-        return venda;
+        return funcionario;
     }
-
-    public static EnderecoRepositorio getEnderecoRepositorio() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-  
-    
  
 }

@@ -16,24 +16,22 @@ import java.util.Objects;
  */
 public class Pessoa {
     private long id;
-    private String nome, registro, cadastro, tipo, relacao, email, telefone;
+    private String nome;
     private Date nascimento;
+    private String email;
+    private String telefone;
     private long endereco;
     public Pessoa(){}
-
-    public Pessoa(long id, String nome, String registro, String cadastro, String tipo, String relacao, String email, String telefone, Date nascimento, long endereco) {
-        this.id = id;
+    //Tipo = Física ou juridica
+    //relacao = cliente, funcionario, fornecedor
+    public Pessoa(String nome, Date nascimento, long endereco, long id, String email, String telefone) {
         this.nome = nome;
-        this.registro = registro;
-        this.cadastro = cadastro;
-        this.tipo = tipo;
-        this.relacao = relacao;
+        /*this.nascimento = nascimento;*/
+        this.endereco = endereco;
+        this.id = id;
         this.email = email;
         this.telefone = telefone;
-        this.nascimento = nascimento;
-        this.endereco = endereco;
     }
-    
 
     public long getId() {
         return id;
@@ -50,39 +48,6 @@ public class Pessoa {
     public void setNome(String nome) {
         this.nome = nome;
     }
-
-    public String getRegistro() {
-        return registro;
-    }
-
-    public void setRegistro(String registro) {
-        this.registro = registro;
-    }
-
-    public String getCadastro() {
-        return cadastro;
-    }
-
-    public void setCadastro(String cadastro) {
-        this.cadastro = cadastro;
-    }
-
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
-    public String getRelacao() {
-        return relacao;
-    }
-
-    public void setRelacao(String relacao) {
-        this.relacao = relacao;
-    }
-
     public Date getNascimento() {
         return nascimento;
     }
@@ -115,6 +80,41 @@ public class Pessoa {
         this.telefone = telefone;
     }
     
-    
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 31 * hash + (int) (this.id ^ (this.id >>> 32));
+        hash = 31 * hash + Objects.hashCode(this.nome);
+        hash = 31 * hash + Objects.hashCode(this.nascimento);
+        hash = 31 * hash + (int) (this.endereco ^ (this.endereco >>> 32));
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Pessoa other = (Pessoa) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        if (this.endereco != other.endereco) {
+            return false;
+        }
+        if (!Objects.equals(this.nome, other.nome)) {
+            return false;
+        }
+        if (!Objects.equals(this.nascimento, other.nascimento)) {
+            return false;
+        }
+        return true;
+    }
     
 }

@@ -5,8 +5,8 @@
  */
 package jcsistemas.persistencia;
 
-import br.edu.ifnmg.jcsistemas.aplicacao.Cliente;
-import br.edu.ifnmg.jcsistemas.aplicacao.ClienteRepositorio;
+import br.edu.ifnmg.jcsistemas.aplicacao.Fornecedor;
+import br.edu.ifnmg.jcsistemas.aplicacao.FornecedorRepositorio;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,39 +18,39 @@ import java.util.logging.Logger;
  *
  * @author victor
  */
-public class ClienteDAO extends DAOGenerico<Cliente> implements ClienteRepositorio {
+public class FornecedorDAO extends DAOGenerico<Fornecedor> implements FornecedorRepositorio {
     @Override
     protected String consultaAbrir() {
-        return "select idCliente, nomeCliente, cpf, registro, dataNascimento, email, telefone, endereco from clientes where idCliente = ?";
+        return "select idFornecedor, nomeFornecedor, cnpj, registro, dataNascimento, email, telefone, endereco from fornecedores where idFornecedor = ?";
     }
 
     @Override
     protected String consultaInsert() {/*dataNascimento,*/ 
-        return "insert into clientes(nomeCliente, cpf, registro, email, telefone, endereco) values(?,?,?,?,?,?)";
+        return "insert into fornecedores(nomeFornecedor, cnpj, registro, email, telefone, endereco) values(?,?,?,?,?,?)";
     }
 
     @Override
     protected String consultaUpdate() {
-        return "update clientes set nomeCliente = ?, cpf = ?, registro = ?, email = ?, telefone = ? where idCliente = ?";
+        return "update fornecedores set nomeFornecedor = ?, cnpj = ?, registro = ?, email = ?, telefone = ? where idFornecedor = ?";
     }
 
     @Override
     protected String consultaDelete() {
-        return "delete from clientes where idCliente = ?";
+        return "delete from fornecedores where idFornecedor = ?";
     }
 
     @Override
     protected String consultaBuscar() {
-        return "select idCliente, nomeCliente, cpf, registro, dataNascimento, email, telefone, endereco from clientes "; 
+        return "select idFornecedor, nomeFornecedor, cnpj, registro, dataNascimento, email, telefone, endereco from fornecedores "; 
     }
 
     @Override
-    protected void carregaParametros(Cliente obj, PreparedStatement consulta) {
+    protected void carregaParametros(Fornecedor obj, PreparedStatement consulta) {
         try {
             
             consulta.setString(1, obj.getNome());
-            consulta.setString(2, obj.getCpf().replace(".", "").replace("-", ""));
-            consulta.setString(3, obj.getRg());
+            consulta.setString(2, obj.getCnpj());
+            consulta.setString(3, obj.getInscriEstadual());
             consulta.setString(4, obj.getEmail());
             consulta.setString(5, obj.getTelefone());
             if(obj.getId() == 0)
@@ -65,33 +65,33 @@ public class ClienteDAO extends DAOGenerico<Cliente> implements ClienteRepositor
     }
     
     @Override
-    protected String carregaParametrosBusca(Cliente obj){
+    protected String carregaParametrosBusca(Fornecedor obj){
         String sql = "";
         if(obj.getId() > 0)
-            sql = this.filtrarPor(sql, "id", Long.toString( obj.getId() ));
+            sql = this.filtrarPor(sql, "idFornecedor", Long.toString( obj.getId() ));
         if(obj.getEndereco() > 0)
             sql = this.filtrarPor(sql, "endereco", Long.toString( obj.getEndereco() ));
-        if(obj.getRg() != null && !obj.getRg().isEmpty())
-            sql = this.filtrarPor(sql, "rg", obj.getRg());
+        if(obj.getInscriEstadual() != null && !obj.getInscriEstadual().isEmpty())
+            sql = this.filtrarPor(sql, "registro", obj.getInscriEstadual());
         if(obj.getNome() != null && !obj.getNome().isEmpty())
-            sql = this.filtrarPor(sql, "nomeCliente", obj.getNome());
-        if(obj.getCpf() != null && !obj.getCpf().isEmpty())
-            sql = this.filtrarPor(sql, "cpf", obj.getCpf().replace(".", "").replace("-", ""));        
+            sql = this.filtrarPor(sql, "nomeFornecedor", obj.getNome());
+        if(obj.getCnpj() != null && !obj.getCnpj().isEmpty())
+            sql = this.filtrarPor(sql, "cnpj", obj.getCnpj());        
         
         return sql;
     }
 
     @Override
-    protected Cliente carregaObjeto(ResultSet dados) {
+    protected Fornecedor carregaObjeto(ResultSet dados) {
         try {
-            Cliente obj = new Cliente(
-                dados.getString("cpf"), 
+            Fornecedor obj = new Fornecedor(
+                dados.getString("cnpj"), 
                 dados.getString("registro"),
-                dados.getLong("idCliente"), 
-                dados.getString("nomeCliente"), 
+                dados.getString("nomeFornecedor"), 
                 dados.getDate("dataNascimento"),
-                dados.getLong("endereco"),
-                dados.getString("email"),
+                dados.getLong("endereco"),    
+                dados.getLong("idFornecedor"), 
+                dados.getString("email"), 
                 dados.getString("telefone")    
             );
             return obj;
@@ -101,7 +101,7 @@ public class ClienteDAO extends DAOGenerico<Cliente> implements ClienteRepositor
         return null;
     }
 @Override
-public boolean Salvar(Cliente obj) {
+public boolean Salvar(Fornecedor obj) {
        long id = obj.getId();
        if(id == 0){
 

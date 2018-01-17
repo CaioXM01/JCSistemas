@@ -9,7 +9,7 @@ import java.util.Objects;
 
 /**
  *
- * @author caio
+ * @author victor
  */
 public class Endereco implements Entidade{
     private long id, numero;

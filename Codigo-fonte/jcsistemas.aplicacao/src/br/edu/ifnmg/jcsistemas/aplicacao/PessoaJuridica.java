@@ -12,17 +12,14 @@ import java.util.Objects;
  *
  * @author victor
  */
-public class PessoaJuridica extends Pessoa {
+public class PessoaJuridica extends Pessoa implements Entidade{
     private String cnpj, inscriEstadual;
-
-    public PessoaJuridica() {
+    public PessoaJuridica(){}
+    public PessoaJuridica(String cnpj, String inscriEstadual, String nome, Date nascimento, long endereco, long id, String email, String telefone) {
+        super(nome, nascimento, endereco, id, email, telefone);
+        this.cnpj = cnpj;
+        this.inscriEstadual = inscriEstadual;
     }
-
-    public PessoaJuridica(long id, String nome, String registro, String cadastro, String tipo, String relacao, String email, String telefone, Date nascimento, long endereco) {
-        super(id, nome, registro, cadastro, tipo, relacao, email, telefone, nascimento, endereco);
-    }
-
-   
 
     public String getCnpj() {
         return cnpj;

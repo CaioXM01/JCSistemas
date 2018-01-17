@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package jcsistemas.persistencia;
-
 import br.edu.ifnmg.jcsistemas.aplicacao.Endereco;
 import br.edu.ifnmg.jcsistemas.aplicacao.EnderecoRepositorio;
 import java.sql.PreparedStatement;
@@ -15,7 +14,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author caio
+ * @author victor
  */
 public class EnderecoDAO extends DAOGenerico<Endereco> implements EnderecoRepositorio{
     @Override

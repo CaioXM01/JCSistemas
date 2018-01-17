@@ -7,7 +7,7 @@ package br.edu.ifnmg.jcsistemas.aplicacao;
 
 /**
  *
- * @author caio
+ * @author victor
  */
 public interface ClienteRepositorio extends Repositorio<Cliente> {
     

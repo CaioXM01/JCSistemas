@@ -13,12 +13,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 /**
  *
  * @author victor
  */
 public abstract class DAOGenerico<T extends Entidade> implements Repositorio<T> {
-     protected abstract String consultaAbrir();
+    protected abstract String consultaAbrir();
     protected abstract String consultaInsert();
     protected abstract String consultaUpdate();
     protected abstract String consultaDelete();
@@ -38,9 +39,9 @@ public abstract class DAOGenerico<T extends Entidade> implements Repositorio<T> 
                 
                 //Se o id == 0 então pega a consulta de inserção
                 sql = this.consultaInsert();
-                
+               
             } else {
-                
+              
                 //Se o id > 0 então pega a consulta de atualização
                 sql = this.consultaUpdate();
             }

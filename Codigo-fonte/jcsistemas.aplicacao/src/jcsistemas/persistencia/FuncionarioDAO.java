@@ -5,8 +5,8 @@
  */
 package jcsistemas.persistencia;
 
-import br.edu.ifnmg.jcsistemas.aplicacao.Cliente;
-import br.edu.ifnmg.jcsistemas.aplicacao.ClienteRepositorio;
+import br.edu.ifnmg.jcsistemas.aplicacao.Funcionario;
+import br.edu.ifnmg.jcsistemas.aplicacao.FuncionarioRepositorio;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,34 +18,34 @@ import java.util.logging.Logger;
  *
  * @author victor
  */
-public class ClienteDAO extends DAOGenerico<Cliente> implements ClienteRepositorio {
+public class FuncionarioDAO extends DAOGenerico<Funcionario> implements FuncionarioRepositorio {
     @Override
     protected String consultaAbrir() {
-        return "select idCliente, nomeCliente, cpf, registro, dataNascimento, email, telefone, endereco from clientes where idCliente = ?";
+        return "select idFuncionario, nomeFuncionario, cpf, registro, dataNascimento, email, telefone, senha, cargo, salario, endereco from funcionarios where idFuncionario = ?";
     }
 
-    @Override
+    @Override   
     protected String consultaInsert() {/*dataNascimento,*/ 
-        return "insert into clientes(nomeCliente, cpf, registro, email, telefone, endereco) values(?,?,?,?,?,?)";
+        return "insert into funcionarios(nomeFuncionario, cpf, registro, email, telefone, senha, cargo, salario, endereco) values(?,?,?,?,?,?,?,?,?)";
     }
 
     @Override
     protected String consultaUpdate() {
-        return "update clientes set nomeCliente = ?, cpf = ?, registro = ?, email = ?, telefone = ? where idCliente = ?";
+        return "update funcionarios set nomeFuncionario = ?, cpf = ?, registro = ?, email = ?, telefone = ?, senha = ?, cargo = ?, salario = ? where idFuncionario = ?";
     }
 
     @Override
     protected String consultaDelete() {
-        return "delete from clientes where idCliente = ?";
+        return "delete from funcionarios where idFuncionario = ?";
     }
 
     @Override
     protected String consultaBuscar() {
-        return "select idCliente, nomeCliente, cpf, registro, dataNascimento, email, telefone, endereco from clientes "; 
+        return "select idFuncionario, nomeFuncionario, cpf, registro, dataNascimento, email, telefone, senha, cargo, salario endereco from funcionarios "; 
     }
 
     @Override
-    protected void carregaParametros(Cliente obj, PreparedStatement consulta) {
+    protected void carregaParametros(Funcionario obj, PreparedStatement consulta) {
         try {
             
             consulta.setString(1, obj.getNome());
@@ -53,11 +53,14 @@ public class ClienteDAO extends DAOGenerico<Cliente> implements ClienteRepositor
             consulta.setString(3, obj.getRg());
             consulta.setString(4, obj.getEmail());
             consulta.setString(5, obj.getTelefone());
+            consulta.setString(6, obj.getSenha());
+            consulta.setString(7, obj.getCargo());
+            consulta.setDouble(8, obj.getSalario());
             if(obj.getId() == 0)
-            consulta.setLong(6, obj.getEndereco());
+            consulta.setLong(9, obj.getEndereco());
             //consulta.setDate(3, new Date(obj.getNascimento().getTime()));
          if(obj.getId() > 0)
-                consulta.setLong(6, obj.getId());
+                consulta.setLong(9, obj.getId());
                 
         } catch (SQLException ex) {
             Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -65,16 +68,16 @@ public class ClienteDAO extends DAOGenerico<Cliente> implements ClienteRepositor
     }
     
     @Override
-    protected String carregaParametrosBusca(Cliente obj){
+    protected String carregaParametrosBusca(Funcionario obj){
         String sql = "";
         if(obj.getId() > 0)
-            sql = this.filtrarPor(sql, "id", Long.toString( obj.getId() ));
+            sql = this.filtrarPor(sql, "idFuncionario", Long.toString( obj.getId() ));
         if(obj.getEndereco() > 0)
             sql = this.filtrarPor(sql, "endereco", Long.toString( obj.getEndereco() ));
         if(obj.getRg() != null && !obj.getRg().isEmpty())
             sql = this.filtrarPor(sql, "rg", obj.getRg());
         if(obj.getNome() != null && !obj.getNome().isEmpty())
-            sql = this.filtrarPor(sql, "nomeCliente", obj.getNome());
+            sql = this.filtrarPor(sql, "nomeFuncionario", obj.getNome());
         if(obj.getCpf() != null && !obj.getCpf().isEmpty())
             sql = this.filtrarPor(sql, "cpf", obj.getCpf().replace(".", "").replace("-", ""));        
         
@@ -82,26 +85,29 @@ public class ClienteDAO extends DAOGenerico<Cliente> implements ClienteRepositor
     }
 
     @Override
-    protected Cliente carregaObjeto(ResultSet dados) {
+    protected Funcionario carregaObjeto(ResultSet dados) {
         try {
-            Cliente obj = new Cliente(
+            Funcionario obj = new Funcionario(
+                dados.getString("cargo"), 
+                dados.getDouble("salario"),  
                 dados.getString("cpf"), 
                 dados.getString("registro"),
-                dados.getLong("idCliente"), 
-                dados.getString("nomeCliente"), 
+                dados.getLong("idFuncionario"), 
+                dados.getString("nomeFuncionario"), 
                 dados.getDate("dataNascimento"),
                 dados.getLong("endereco"),
                 dados.getString("email"),
-                dados.getString("telefone")    
+                dados.getString("telefone"),
+                dados.getString("senha")   
             );
             return obj;
         } catch (SQLException ex) {
-            Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
 @Override
-public boolean Salvar(Cliente obj) {
+public boolean Salvar(Funcionario obj) {
        long id = obj.getId();
        if(id == 0){
 
@@ -116,7 +122,7 @@ public boolean Salvar(Cliente obj) {
                
                
                 } catch (SQLException ex) {
-                    Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
                 }
         }
        
@@ -129,7 +135,7 @@ public boolean Salvar(Cliente obj) {
                 consulta.executeUpdate();
                 return true;
             } catch (SQLException ex) {
-                Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
        
        }else{
@@ -140,7 +146,7 @@ public boolean Salvar(Cliente obj) {
                 consulta.executeUpdate();
                 return true;
             } catch (SQLException ex) {
-                Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
        }
         return false;

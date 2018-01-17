@@ -19,15 +19,13 @@ public class PessoaFisica extends Pessoa implements Entidade{
     public PessoaFisica() {
         
     }
-
-
-    public PessoaFisica(String cpf, String rg, long id, String nome, String registro, String cadastro, String tipo, String relacao, String email, String telefone, Date nascimento, long endereco) {
-        super(id, nome, registro, cadastro, tipo, relacao, email, telefone, nascimento, endereco);
+    
+    public PessoaFisica(String cpf, String rg, long id, String nome, Date nascimento, long endereco, String email, String telefone) {
+        super(nome, nascimento, endereco, id, email, telefone);
         this.cpf = cpf;
         this.rg = rg;
     }
-    
-  
+
     public String getCpf() {
         return cpf;
     }

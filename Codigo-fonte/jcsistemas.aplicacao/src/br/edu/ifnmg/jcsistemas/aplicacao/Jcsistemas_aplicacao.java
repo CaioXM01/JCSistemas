@@ -5,6 +5,14 @@
  */
 package br.edu.ifnmg.jcsistemas.aplicacao;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import jcsistemas.persistencia.BD;
+import jcsistemas.persistencia.JcsistemasPersistencia;
+
 /**
  *
  * @author victor
@@ -16,6 +24,7 @@ public class Jcsistemas_aplicacao {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        
     }
     
 }
