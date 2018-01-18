@@ -1,0 +1,26 @@
+create database jcsistemas;
+use jcsistemas;
+
+create table clientes(
+ id int primary key auto_increment,
+ nome varchar(200),
+ cpf varchar (20)
+);
+
+create table produtos(
+ id int primary key auto_increment,
+ nome varchar(200),
+ estoque int default 0,
+ descricao varchar (200),
+ tipo varchar(100),
+ custo numeric(5,2),
+ venda numeric(5,2)
+);
+
+create table servicos(
+ id int primary key auto_increment,
+ nome varchar(200),
+ descricao varchar (200),
+ tipo varchar(100),
+ venda numeric(5,2)
+);
