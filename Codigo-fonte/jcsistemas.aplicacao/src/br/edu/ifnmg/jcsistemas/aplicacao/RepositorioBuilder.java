@@ -9,6 +9,8 @@ package br.edu.ifnmg.jcsistemas.aplicacao;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -128,5 +130,75 @@ public class RepositorioBuilder {
         }
         return funcionario;
     }
+
+    private static ProdutoRepositorio produto;
+    
+    public static ProdutoRepositorio getProdutoRepositorio(){
+        
+        if(produto == null){
+         
+            try {    
+                // Carrega a classe
+                  Class obj = Class.forName(prop.getProperty("ProdutoRepositorio"));
+            
+                  produto = (ProdutoRepositorio)obj.newInstance();
+            } catch (ClassNotFoundException ex) {
+                java.util.logging.Logger.getLogger(RepositorioBuilder.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            }   
+            catch (InstantiationException | IllegalAccessException ex) {
+                java.util.logging.Logger.getLogger(RepositorioBuilder.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            }
+                
+           
+        }
+        return produto;
+    }
+    
+     private static ServicoRepositorio servico;
+    
+    public static ServicoRepositorio getServicoRepositorio(){
+        
+        if(servico == null){
+         
+            try {    
+                // Carrega a classe
+                  Class obj = Class.forName(prop.getProperty("ServicoRepositorio"));
+            
+                  servico = (ServicoRepositorio)obj.newInstance();
+            } catch (ClassNotFoundException ex) {
+                java.util.logging.Logger.getLogger(RepositorioBuilder.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            }   
+            catch (InstantiationException | IllegalAccessException ex) {
+                java.util.logging.Logger.getLogger(RepositorioBuilder.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            }
+                
+           
+        }
+        return servico;
+    }
+    
+    private static NotaVendaRepositorio venda;
+    
+    public static NotaVendaRepositorio getNotaVendaRepositorio(){
+        if(venda == null){
+            try {
+                
+                // Carrega a classe
+                Class obj = Class.forName(prop.getProperty("VendaRepositorio"));
+                
+                // Cria uma nova instância da classe
+                venda = (NotaVendaRepositorio)obj.newInstance();
+                
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(RepositorioBuilder.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (InstantiationException ex) {
+                Logger.getLogger(RepositorioBuilder.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IllegalAccessException ex) {
+                Logger.getLogger(RepositorioBuilder.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return venda;
+    }
+
  
 }

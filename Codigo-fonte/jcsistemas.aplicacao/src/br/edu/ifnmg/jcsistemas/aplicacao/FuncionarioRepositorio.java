@@ -9,6 +9,6 @@ package br.edu.ifnmg.jcsistemas.aplicacao;
  *
  * @author victor
  */
-public interface FuncionarioRepositorio extends Repositorio<Fornecedor>{
+public interface FuncionarioRepositorio extends Repositorio<Funcionario>{
     
 }

@@ -26,7 +26,7 @@ public class TelaBuscarClientes extends FormBuscar<Cliente> {
     /**
      * Creates new form TelaEditarCliente
      */
-    public TelaEditarCliente() {
+    public TelaBuscarClientes() {
         initComponents();
         //setEditar(new TelaCadastrarCliente());
         setRepositorio(RepositorioBuilder.getClienteRepositorio());

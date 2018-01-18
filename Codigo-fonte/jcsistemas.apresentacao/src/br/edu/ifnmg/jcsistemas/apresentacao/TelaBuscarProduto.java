@@ -27,8 +27,7 @@ public class TelaBuscarProduto extends FormBuscar<Produto>  {
          initComponents();
         setEditar(new TelaCadastrarProduto());
         setRepositorio(RepositorioBuilder.getProdutoRepositorio());
-        Dimension tamanho = this.getSize();
-        this.setLocation((tamanho.width - this.getSize().width) / 2, (tamanho.height - this.getSize().height) / 2);
+        
     }
 
     /**
