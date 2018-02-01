@@ -34,17 +34,17 @@ public class NotaVendaDAO  extends DAOGenerico<NotaVenda> implements NotaVendaRe
 
   @Override
     protected String consultaAbrir() {
-        return "select id, cliente, data, valortotal from vendas where id = ?";
+        return "select id, id_cliente, datavenda, valortotal from vendas where id = ?";
     }
 
     @Override
     protected String consultaInsert() {
-        return "insert into vendas(cliente, data, valortotal) values(?,?,?)";
+        return "insert into vendas(id_cliente, datavenda, valortotal) values(?,?,?)";
     }
 
     @Override
     protected String consultaUpdate() {
-        return "update vendas set cliente=?, data=?, valortotal=? where id = ?";
+        return "update vendas set id_cliente=?, datavenda=?, valortotal=? where id = ?";
     }
 
     @Override
@@ -54,7 +54,7 @@ public class NotaVendaDAO  extends DAOGenerico<NotaVenda> implements NotaVendaRe
 
     @Override
     protected String consultaBuscar() {
-        return "select id, cliente, data, valortotal from vendas ";
+        return "select id, id_cliente, datavenda, valortotal from vendas ";
     }
 
     @Override
@@ -75,8 +75,8 @@ public class NotaVendaDAO  extends DAOGenerico<NotaVenda> implements NotaVendaRe
 
             NotaVenda obj = new NotaVenda();
             obj.setId(dados.getLong("id"));
-            obj.setCliente(clientes.Abrir(dados.getLong("cliente")));
-            obj.setDataVenda(new java.util.Date(dados.getDate("data").getTime()));
+            obj.setCliente(clientes.Abrir(dados.getLong("id_cliente")));
+            obj.setDataVenda(new java.util.Date(dados.getDate("datavenda").getTime()));
             obj.setValorTotal(dados.getBigDecimal("valortotal"));
 
             obj.setItens((ArrayList) AbrirItens(obj));
@@ -93,7 +93,7 @@ public class NotaVendaDAO  extends DAOGenerico<NotaVenda> implements NotaVendaRe
         try {
             // Utilizando a conexão aberta, cria um Statement (comando)
             PreparedStatement consulta = BD.getConexao().prepareStatement(
-                    "select id, venda, produto, quantidade, valorunitario from vendasitens where venda = ?");
+                    "select id, id_venda, id_produto, quantidade, valorunitario from vendasitens where id_venda = ?");
 
             // Coloca o parâmetro da consulta (id)
             consulta.setLong(1, obj.getId());
@@ -121,7 +121,7 @@ public class NotaVendaDAO  extends DAOGenerico<NotaVenda> implements NotaVendaRe
             NotaItem item = new NotaItem();
             item.setId(dados.getLong("id"));
             item.setVenda(venda);
-            item.setProduto(produtos.Abrir(dados.getLong("produto")));
+            item.setProduto(produtos.Abrir(dados.getLong("id_produto")));
             item.setQuantidade(dados.getInt("quantidade"));
             item.setValorUnitario(dados.getBigDecimal("valorunitario"));
 
@@ -140,11 +140,11 @@ public class NotaVendaDAO  extends DAOGenerico<NotaVenda> implements NotaVendaRe
         }
 
         if (obj.getDataVenda() != null) {
-            sql = this.filtrarPor(sql, "data", df.format(obj.getDataVenda()));
+            sql = this.filtrarPor(sql, "datavenda", df.format(obj.getDataVenda()));
         }
 
         if (obj.getCliente() != null) {
-            sql = this.filtrarPor(sql, "cliente", Long.toString(obj.getCliente().getId()));
+            sql = this.filtrarPor(sql, "id_cliente", Long.toString(obj.getCliente().getId()));
         }
 
         return sql;
@@ -159,7 +159,7 @@ public class NotaVendaDAO  extends DAOGenerico<NotaVenda> implements NotaVendaRe
             if(id == 0){
             
                 try {
-                    String pegaid = "select max(id) from vendas where cliente = ? and data = ?";
+                    String pegaid = "select max(id) from vendas where id_cliente = ? and datavenda = ?";
                     
                     PreparedStatement consultaid = BD.getConexao().prepareStatement(pegaid);
                     
@@ -180,7 +180,7 @@ public class NotaVendaDAO  extends DAOGenerico<NotaVenda> implements NotaVendaRe
             
             
             try {
-                String sql = "insert into vendasitens(venda, produto, quantidade, valorunitario) values(?,?,?,?)";
+                String sql = "insert into vendasitens(id_venda, id_produto, quantidade, valorunitario) values(?,?,?,?)";
 
                 for (NotaItem i : obj.getItens()) {
 

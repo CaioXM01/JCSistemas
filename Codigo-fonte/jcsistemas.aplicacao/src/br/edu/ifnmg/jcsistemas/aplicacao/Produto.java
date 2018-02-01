@@ -53,7 +53,7 @@ public class Produto extends ProdutoGenerico implements Entidade{
 
     @Override
     public String toString() {
-        return "Produto{" + "valorCusto=" + valorCusto + ", percentualLucro=" + percentualLucro + ", estoque=" + estoque + '}';
+        return super.getNome() + "  -   Valor:" + super.getValorVenda() + "  -   Estoque:" + estoque ;
     }
 
     @Override

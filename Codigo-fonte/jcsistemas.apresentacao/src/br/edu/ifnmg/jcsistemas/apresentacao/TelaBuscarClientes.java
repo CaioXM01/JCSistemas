@@ -6,6 +6,7 @@
 package br.edu.ifnmg.jcsistemas.apresentacao;
 
 import br.edu.ifnmg.jcsistemas.aplicacao.Cliente;
+import br.edu.ifnmg.jcsistemas.aplicacao.ClienteRepositorio;
 import br.edu.ifnmg.jcsistemas.aplicacao.Endereco;
 import br.edu.ifnmg.jcsistemas.aplicacao.EnderecoRepositorio;
 import br.edu.ifnmg.jcsistemas.aplicacao.RepositorioBuilder;
@@ -21,8 +22,8 @@ import javax.swing.table.DefaultTableModel;
  * @author caio
  */
 public class TelaBuscarClientes extends FormBuscar<Cliente> {
-    EnderecoRepositorio endereco = RepositorioBuilder.getEnderecoRepositorio();
-    Endereco a = new Endereco();
+    ClienteRepositorio cliente = RepositorioBuilder.getClienteRepositorio();
+    Cliente a = new Cliente();
     /**
      * Creates new form TelaEditarCliente
      */
@@ -182,10 +183,10 @@ public class TelaBuscarClientes extends FormBuscar<Cliente> {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
-       // TelaCadastrarCliente tela = new TelaCadastrarCliente();
-       // this.getParent().add(tela);
-       // tela.setVisible(true);
-       // this.setVisible(false);
+        TelaCadastrarCliente tela = new TelaCadastrarCliente();
+        this.getParent().add(tela);
+        tela.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void txtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeActionPerformed

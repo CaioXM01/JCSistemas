@@ -6,6 +6,7 @@
 package br.edu.ifnmg.jcsistemas.aplicacao;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
@@ -23,6 +24,16 @@ public class NotaGenerico {
     private Date dataVenda, dataEmissao, dataQuite;
 
     public NotaGenerico() {
+        itens=new ArrayList<NotaItem>(); 
+         this.id = 0;
+        this.parcelas = 0;
+        this.descricao = "";
+        this.metodo = "";
+        this.valorTotal = new BigDecimal("0.00");
+        this.jurus = new BigDecimal("0.00");
+        this.dataVenda = new Date();
+        this.dataEmissao = new Date();
+        this.dataQuite = new Date();
         
     }
 
@@ -129,7 +140,7 @@ public class NotaGenerico {
         if(!this.itens.contains(item)){
             item.setVenda((NotaVenda) this);
             itens.add(item);
-            this.valorTotal = this.valorTotal.add(item.getValorTotal());
+            this.valorTotal = this.getValorTotal().add(item.getValorTotal());
         }
     }
     

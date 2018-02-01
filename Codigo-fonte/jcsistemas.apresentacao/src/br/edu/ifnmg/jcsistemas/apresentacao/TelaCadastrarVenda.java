@@ -91,6 +91,7 @@ public class TelaCadastrarVenda extends FormEditar<NotaVenda> {
         jLabel1.setText("Cliente:");
 
         cbxClientes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbxClientes.setToolTipText("");
 
         jLabel2.setText("Data:");
 
@@ -344,7 +345,7 @@ public class TelaCadastrarVenda extends FormEditar<NotaVenda> {
     protected void carregaCampos() {
         lblCodigo.setText(Long.toString(entidade.getId()));
         cbxClientes.setSelectedItem(entidade.getCliente());
-        txtData.setText(df.format(entidade.getDataVenda()));
+        //txtData.setText(df.format(entidade.getDataVenda()));
         lblValor.setText(entidade.getValorTotal().toString());
         
         carregaItens();

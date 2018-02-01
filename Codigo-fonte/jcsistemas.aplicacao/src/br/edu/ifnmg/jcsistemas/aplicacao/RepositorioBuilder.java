@@ -184,7 +184,7 @@ public class RepositorioBuilder {
             try {
                 
                 // Carrega a classe
-                Class obj = Class.forName(prop.getProperty("VendaRepositorio"));
+                Class obj = Class.forName(prop.getProperty("NotaVendaRepositorio"));
                 
                 // Cria uma nova instância da classe
                 venda = (NotaVendaRepositorio)obj.newInstance();

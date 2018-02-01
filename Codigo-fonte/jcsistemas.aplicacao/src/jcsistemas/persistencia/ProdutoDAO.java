@@ -92,6 +92,7 @@ public class ProdutoDAO extends DAOGenerico<Produto> implements ProdutoRepositor
                 obj.setId(dados.getLong("id")); 
                 obj.setEstoque(dados.getLong("estoque")); 
                 obj.setNome(dados.getString("nome"));
+              
                 obj.setValorCusto(dados.getBigDecimal("custo"));
                 obj.setValorVenda(dados.getBigDecimal("venda"));
 

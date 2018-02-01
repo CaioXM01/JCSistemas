@@ -21,12 +21,12 @@ import java.util.logging.Logger;
 public class FornecedorDAO extends DAOGenerico<Fornecedor> implements FornecedorRepositorio {
     @Override
     protected String consultaAbrir() {
-        return "select idFornecedor, nomeFornecedor, cnpj, registro, dataNascimento, email, telefone, endereco from fornecedores where idFornecedor = ?";
+        return "select idFornecedor, nomeFornecedor, cnpj, registro, email, telefone, endereco from fornecedores where idFornecedor = ?";
     }
 
     @Override
     protected String consultaInsert() {/*dataNascimento,*/ 
-        return "insert into fornecedores(nomeFornecedor, cnpj, registro, email, telefone, endereco) values(?,?,?,?,?,?)";
+        return "insert into fornecedores (nomeFornecedor, cnpj, registro, email, telefone, endereco) values(?,?,?,?,?,?)";
     }
 
     @Override
@@ -41,7 +41,7 @@ public class FornecedorDAO extends DAOGenerico<Fornecedor> implements Fornecedor
 
     @Override
     protected String consultaBuscar() {
-        return "select idFornecedor, nomeFornecedor, cnpj, registro, dataNascimento, email, telefone, endereco from fornecedores "; 
+        return "select idFornecedor, nomeFornecedor, cnpj, registro, email, telefone, endereco from fornecedores "; 
     }
 
     @Override

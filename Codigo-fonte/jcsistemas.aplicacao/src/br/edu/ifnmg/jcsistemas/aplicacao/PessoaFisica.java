@@ -49,7 +49,7 @@ public class PessoaFisica extends Pessoa implements Entidade{
 
     @Override
     public String toString() {
-        return "Cliente{" + "cpf=" + cpf + ", rg=" + rg + '}';
+        return super.getNome() + "  -  CPF: " + cpf + "  -  RG: " + rg ;
     }
 
     @Override

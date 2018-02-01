@@ -9,9 +9,6 @@ import br.edu.ifnmg.jcsistemas.aplicacao.RepositorioBuilder;
 import br.edu.ifnmg.jcsistemas.aplicacao.Endereco;
 import br.edu.ifnmg.jcsistemas.aplicacao.EnderecoRepositorio;
 import br.edu.ifnmg.jcsistemas.aplicacao.ViolacaoRegraNegocioException;
-import java.text.ParseException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -19,7 +16,7 @@ import javax.swing.JOptionPane;
  * @author victor
  */
 public class TelaCadastrarCliente extends FormEditar<Cliente> {
-        EnderecoRepositorio endereco = RepositorioBuilder.getEnderecoRepositorio();
+           EnderecoRepositorio endereco = RepositorioBuilder.getEnderecoRepositorio();
         Endereco a = new Endereco();
     /**
      * Creates new form TelaCadastrarCliente
