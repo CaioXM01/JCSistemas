@@ -4,18 +4,35 @@
  * and open the template in the editor.
  */
 package br.edu.ifnmg.jcsistemas.apresentacao;
+import br.edu.ifnmg.jcsistemas.aplicacao.Endereco;
+import br.edu.ifnmg.jcsistemas.aplicacao.EnderecoRepositorio;
+import br.edu.ifnmg.jcsistemas.aplicacao.Funcionario;
+import br.edu.ifnmg.jcsistemas.aplicacao.RepositorioBuilder;
+import br.edu.ifnmg.jcsistemas.aplicacao.ViolacaoRegraNegocioException;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+import jcsistemas.persistencia.BD;
 
 /**
  *
  * @author victor
  */
-public class TelaEditarFuncionarios extends javax.swing.JInternalFrame {
-
+public class TelaEditarFuncionarios extends FormBuscar<Funcionario> {
+    EnderecoRepositorio endereco = RepositorioBuilder.getEnderecoRepositorio();
+    Endereco a = new Endereco();
     /**
      * Creates new form TelaEditarFuncionarios
      */
     public TelaEditarFuncionarios() {
         initComponents();
+        setEditar(new TelaCadastrarFuncionario());
+        setRepositorio(RepositorioBuilder.getFuncionarioRepositorio());
     }
 
     /**
@@ -28,21 +45,21 @@ public class TelaEditarFuncionarios extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabResultado = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         btnBuscar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         txtNome = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        txtCpf = new javax.swing.JTextField();
         btnNovo = new javax.swing.JButton();
+        txtCpf = new javax.swing.JFormattedTextField();
 
         setClosable(true);
         setMaximizable(true);
         setTitle("Buscar Funcionário");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabResultado.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -53,11 +70,21 @@ public class TelaEditarFuncionarios extends javax.swing.JInternalFrame {
 
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        tabResultado.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabResultadoMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tabResultado);
 
         jLabel1.setText("Nome : ");
 
         btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -86,26 +113,26 @@ public class TelaEditarFuncionarios extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(40, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnBuscar)
                         .addGap(141, 141, 141)
                         .addComponent(btnCancelar)
-                        .addGap(157, 157, 157)
-                        .addComponent(btnNovo))
+                        .addGap(157, 157, 157))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)))
-                .addContainerGap(31, Short.MAX_VALUE))
+                        .addGap(7, 7, 7)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnNovo)
+                    .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jScrollPane1)
         );
         layout.setVerticalGroup(
@@ -118,7 +145,7 @@ public class TelaEditarFuncionarios extends javax.swing.JInternalFrame {
                     .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
                     .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnNovo)
@@ -145,6 +172,20 @@ public class TelaEditarFuncionarios extends javax.swing.JInternalFrame {
         this.setVisible(false);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        // TODO add your handling code here:
+        buscar();
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void tabResultadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabResultadoMouseClicked
+        // TODO add your handling code here:
+         int linha = tabResultado.getSelectedRow();
+        
+        long id = Long.parseLong(tabResultado.getValueAt(linha, 0).toString() );
+        
+        editar(id);
+    }//GEN-LAST:event_tabResultadoMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
@@ -154,8 +195,88 @@ public class TelaEditarFuncionarios extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField txtCpf;
+    private javax.swing.JTable tabResultado;
+    private javax.swing.JFormattedTextField txtCpf;
     private javax.swing.JTextField txtNome;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    protected void preencherTabela(List<Funcionario> dados) {
+        DefaultTableModel modelo = new DefaultTableModel();
+            
+        modelo.addColumn("ID");
+        modelo.addColumn("Nome");
+        modelo.addColumn("CPF");
+        modelo.addColumn("RG");
+        modelo.addColumn("Nascimento");
+        modelo.addColumn("Email");
+        modelo.addColumn("Telefone");
+        modelo.addColumn("Cargo");
+        modelo.addColumn("Salário");
+        modelo.addColumn("IDEndereco");
+        modelo.addColumn("Cidade");
+        modelo.addColumn("Rua");
+        modelo.addColumn("Complemento");
+        modelo.addColumn("Numero");
+        modelo.addColumn("Bairro");
+        modelo.addColumn("UF");
+        modelo.addColumn("Cep");
+        for(Funcionario c : dados){
+            Vector valores = new Vector();
+            valores.add(c.getId());
+            valores.add(c.getNome());
+            valores.add(c.getCpf());
+            valores.add(c.getRg());
+            valores.add(c.getNascimento());
+            valores.add(c.getEmail());
+            valores.add(c.getTelefone());
+            valores.add(c.getCargo());
+            valores.add(c.getSalario());
+            valores.add(c.getEndereco());        
+            Endereco obj1 = RepositorioBuilder.getEnderecoRepositorio().Abrir(c.getEndereco());
+            valores.add(obj1.getCidade()); 
+            valores.add(obj1.getRua()); 
+            valores.add(obj1.getComplemento()); 
+            valores.add(obj1.getNumero()); 
+            valores.add(obj1.getBairro()); 
+            String uf=""; 
+            try {  
+                    PreparedStatement consulta;
+                    consulta = BD.getConexao().prepareStatement("SELECT nomeUf FROM uf where idUf = ?");
+                    consulta.setLong(1, obj1.getEstado());
+                    ResultSet r = consulta.executeQuery();
+                    r.next();
+                    uf = r.getString(1);
+                } catch (SQLException ex) {
+                    Logger.getLogger(TelaEditarFuncionarios.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            valores.add(uf);
+            valores.add(obj1.getCep());
+
+            modelo.addRow(valores);
+        }
+
+        tabResultado.setModel(modelo);
+    }
+
+    @Override
+    protected Funcionario carregaFiltro() {
+         try {
+            Funcionario filtro = new Funcionario();
+            
+            if(!txtNome.getText().isEmpty())
+                filtro.setNome(txtNome.getText());
+            if(txtCpf.getValue()!= null)
+                filtro.setCpf(txtCpf.getText());
+            return filtro;
+        } catch (ViolacaoRegraNegocioException ex) {
+            Logger.getLogger(TelaEditarCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    @Override
+    protected Funcionario novaEntidade() {
+        return new Funcionario();
+    }
 }

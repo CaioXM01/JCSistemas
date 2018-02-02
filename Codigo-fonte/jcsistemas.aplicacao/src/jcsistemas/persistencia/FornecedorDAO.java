@@ -21,7 +21,7 @@ import java.util.logging.Logger;
 public class FornecedorDAO extends DAOGenerico<Fornecedor> implements FornecedorRepositorio {
     @Override
     protected String consultaAbrir() {
-        return "select idFornecedor, nomeFornecedor, cnpj, registro, email, telefone, endereco from fornecedores where idFornecedor = ?";
+        return "select idFornecedor, nomeFornecedor, cnpj, registro, email, telefone, endereco, dataNascimento from fornecedores where idFornecedor = ?";
     }
 
     @Override
@@ -41,7 +41,7 @@ public class FornecedorDAO extends DAOGenerico<Fornecedor> implements Fornecedor
 
     @Override
     protected String consultaBuscar() {
-        return "select idFornecedor, nomeFornecedor, cnpj, registro, email, telefone, endereco from fornecedores "; 
+        return "select idFornecedor, nomeFornecedor, cnpj, registro, email, telefone, endereco, dataNascimento from fornecedores "; 
     }
 
     @Override

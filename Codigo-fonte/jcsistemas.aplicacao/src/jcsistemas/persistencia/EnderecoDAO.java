@@ -39,7 +39,7 @@ public class EnderecoDAO extends DAOGenerico<Endereco> implements EnderecoReposi
 
     @Override
     protected String consultaBuscar() {
-        return "select idEndereco, cidade, rua, comlemento, numero, bairro, estado, cep from enderecos "; 
+        return "select idEndereco, cidade, rua, comlemento, numero, bairro, estado, cep from enderecos"; 
     }
 
     @Override
@@ -50,7 +50,7 @@ public class EnderecoDAO extends DAOGenerico<Endereco> implements EnderecoReposi
             consulta.setString(3, obj.getComplemento());           
             consulta.setLong(4, obj.getNumero());
             consulta.setString(5, obj.getBairro());
-            consulta.setString(6, obj.getEstado());
+            consulta.setLong(6, obj.getEstado());
             consulta.setString(7, obj.getCep());
            // consulta.setString(6, obj.getEstado());
             if(obj.getId() > 0)
@@ -75,8 +75,8 @@ public class EnderecoDAO extends DAOGenerico<Endereco> implements EnderecoReposi
             sql = this.filtrarPor(sql, "cidade", obj.getCidade());
         if(obj.getComplemento() != null && !obj.getComplemento().isEmpty())
             sql = this.filtrarPor(sql,"complemento", obj.getComplemento());
-        if(obj.getEstado()!= null && !obj.getEstado().isEmpty())
-            sql = this.filtrarPor(sql, "estado", obj.getEstado());
+       /* if(obj.getEstado()!= null && !obj.getEstado().isEmpty())
+            sql = this.filtrarPor(sql, "estado", obj.getEstado());*/
         if(obj.getCep()!= null && !obj.getCep().isEmpty())
             sql = this.filtrarPor(sql, "cep", obj.getCep());
         if(obj.getRua() != null && !obj.getRua().isEmpty())
@@ -91,7 +91,7 @@ public class EnderecoDAO extends DAOGenerico<Endereco> implements EnderecoReposi
         try {
             Endereco obj = new Endereco(
                 dados.getLong("idEndereco"), 
-                dados.getString("estado"), 
+                dados.getLong("estado"), 
                 dados.getLong("numero"),
                 dados.getString("rua"),
                 dados.getString("bairro"), 
