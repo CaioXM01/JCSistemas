@@ -9,11 +9,15 @@ import br.edu.ifnmg.jcsistemas.aplicacao.EnderecoRepositorio;
 import br.edu.ifnmg.jcsistemas.aplicacao.Cliente;
 import br.edu.ifnmg.jcsistemas.aplicacao.RepositorioBuilder;
 import br.edu.ifnmg.jcsistemas.aplicacao.ViolacaoRegraNegocioException;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
+import jcsistemas.persistencia.BD;
 
 
 /**
@@ -245,7 +249,18 @@ public class TelaEditarCliente extends FormBuscar<Cliente> {
             valores.add(obj1.getComplemento()); 
             valores.add(obj1.getNumero()); 
             valores.add(obj1.getBairro()); 
-            valores.add(obj1.getEstado());
+             String uf=""; 
+            try {  
+                    PreparedStatement consulta;
+                    consulta = BD.getConexao().prepareStatement("SELECT nomeUf FROM uf where idUf = ?");
+                    consulta.setLong(1, obj1.getEstado());
+                    ResultSet r = consulta.executeQuery();
+                    r.next();
+                    uf = r.getString(1);
+                } catch (SQLException ex) {
+                    Logger.getLogger(TelaEditarFuncionarios.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            valores.add(uf);
             valores.add(obj1.getCep());
 
             modelo.addRow(valores);

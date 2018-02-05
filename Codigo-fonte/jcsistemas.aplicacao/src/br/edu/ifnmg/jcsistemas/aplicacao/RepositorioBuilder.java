@@ -199,6 +199,31 @@ public class RepositorioBuilder {
         }
         return venda;
     }
+    
+    
+    
+     private static NotaCompraRepositorio compra;
+    
+    public static NotaCompraRepositorio getNotaCompraRepositorio(){
+        if(compra == null){
+            try {
+                
+                // Carrega a classe
+                Class obj = Class.forName(prop.getProperty("NotaCompraRepositorio"));
+                
+                // Cria uma nova instância da classe
+                compra = (NotaCompraRepositorio)obj.newInstance();
+                
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(RepositorioBuilder.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (InstantiationException ex) {
+                Logger.getLogger(RepositorioBuilder.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IllegalAccessException ex) {
+                Logger.getLogger(RepositorioBuilder.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return compra;
+    }
 
  
 }

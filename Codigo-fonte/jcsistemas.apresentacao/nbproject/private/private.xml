@@ -3,9 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/home/caio/Área%20de%20Trabalho/JCSistemas/Codigo-fonte/jcsistemas.apresentacao/src/br/edu/ifnmg/jcsistemas/apresentacao/TelaBuscarProduto.java</file>
             <file>file:/home/caio/Área%20de%20Trabalho/JCSistemas/Codigo-fonte/jcsistemas.apresentacao/src/br/edu/ifnmg/jcsistemas/apresentacao/FormBuscar.java</file>
             <file>file:/home/caio/Área%20de%20Trabalho/JCSistemas/Codigo-fonte/jcsistemas.apresentacao/src/br/edu/ifnmg/jcsistemas/apresentacao/TelaBuscarVenda.java</file>
+=======
+            <file>file:/home/victor/Área%20de%20Trabalho/jcMaster/JCSistemas/Codigo-fonte/jcsistemas.apresentacao/src/br/edu/ifnmg/jcsistemas/apresentacao/TelaCadastrarCliente.java</file>
+            <file>file:/home/victor/Área%20de%20Trabalho/jcMaster/JCSistemas/Codigo-fonte/jcsistemas.apresentacao/src/br/edu/ifnmg/jcsistemas/apresentacao/FormEditar.java</file>
+>>>>>>> 09073197f3e627fbd0283f852df37191686aa577
         </group>
     </open-files>
 </project-private>

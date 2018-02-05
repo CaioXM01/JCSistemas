@@ -19,7 +19,7 @@ public class Servico extends ProdutoGenerico implements Entidade{
     }
 
     public Servico(String tipoServico, long id, BigDecimal valorVenda, String nome, String descricao, String tipo) {
-        super(id, valorVenda, nome, descricao, tipo);
+        super(id, valorVenda, nome, descricao, "servico");
         this.tipoServico = tipoServico;
     }
 

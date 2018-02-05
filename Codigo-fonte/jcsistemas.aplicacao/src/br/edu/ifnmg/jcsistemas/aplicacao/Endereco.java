@@ -12,8 +12,8 @@ import java.util.Objects;
  * @author victor
  */
 public class Endereco implements Entidade{
-    private long id, numero;
-    private String rua, bairro,complemento, cidade, estado, cep;
+    private long id, numero, estado;
+    private String rua, bairro,complemento, cidade,  cep;
 
     @Override
     public int hashCode() {
@@ -69,7 +69,7 @@ public class Endereco implements Entidade{
         return "Endereco{" + "id=" + id + ", estado=" + estado + ", numero=" + numero + ", rua=" + rua + ", bairro=" + bairro + ", complemento=" + complemento + ", cidade=" + cidade + '}';
     }
     public Endereco(){};
-    public Endereco(long id, String estado, long numero, String rua, String bairro, String complemento, String cidade,  String cep) {
+    public Endereco(long id, Long estado, long numero, String rua, String bairro, String complemento, String cidade,  String cep) {
         this.id = id;
         this.estado = estado;
         this.numero = numero;
@@ -88,11 +88,11 @@ public class Endereco implements Entidade{
         this.id = id;
     }
 
-    public String getEstado() {
+    public Long getEstado() {
         return estado;
     }
 
-    public void setEstado(String estado) {
+    public void setEstado(Long estado) {
         this.estado = estado;
     }
 

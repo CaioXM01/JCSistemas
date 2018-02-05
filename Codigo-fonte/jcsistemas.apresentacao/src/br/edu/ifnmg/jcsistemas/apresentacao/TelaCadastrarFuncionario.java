@@ -6,18 +6,42 @@
 package br.edu.ifnmg.jcsistemas.apresentacao;
 
 import javax.swing.JOptionPane;
-
+import br.edu.ifnmg.jcsistemas.aplicacao.Funcionario;
+import br.edu.ifnmg.jcsistemas.aplicacao.RepositorioBuilder;
+import br.edu.ifnmg.jcsistemas.aplicacao.Endereco;
+import br.edu.ifnmg.jcsistemas.aplicacao.EnderecoRepositorio;
+import br.edu.ifnmg.jcsistemas.aplicacao.ViolacaoRegraNegocioException;
+import java.math.BigDecimal;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import jcsistemas.persistencia.BD;
 /**
  *
  * @author victor
  */
-public class TelaCadastrarFuncionario extends javax.swing.JInternalFrame {
-
+public class TelaCadastrarFuncionario extends FormEditar<Funcionario> {
+     EnderecoRepositorio endereco = RepositorioBuilder.getEnderecoRepositorio();
+     Endereco a = new Endereco();
     /**
      * Creates new form TelaCadastrarFuncionario
      */
     public TelaCadastrarFuncionario() {
         initComponents();
+         try {
+             PreparedStatement consulta = BD.getConexao().prepareStatement("SELECT * FROM uf");
+             ResultSet r = consulta.executeQuery();
+         
+                while(r.next()){
+                    cbUf.addItem(r.getString("nomeUf"));
+                }
+         } catch (SQLException ex) {
+             Logger.getLogger(TelaCadastrarFuncionario.class.getName()).log(Level.SEVERE, null, ex);
+         }
+        entidade = new Funcionario();
+        setRepositorio(RepositorioBuilder.getFuncionarioRepositorio());
     }
 
     /**
@@ -62,6 +86,9 @@ public class TelaCadastrarFuncionario extends javax.swing.JInternalFrame {
         txtNumero = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
         txtComplemento = new javax.swing.JTextField();
+        btnApagar = new javax.swing.JButton();
+        txtTelefone = new javax.swing.JTextField();
+        jLabel16 = new javax.swing.JLabel();
 
         setTitle("Cadastrar Funcionário");
 
@@ -92,7 +119,12 @@ public class TelaCadastrarFuncionario extends javax.swing.JInternalFrame {
 
         jLabel10.setText("UF : ");
 
-        cbUf.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbUf.setModel(new javax.swing.DefaultComboBoxModel<>());
+        cbUf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbUfActionPerformed(evt);
+            }
+        });
 
         jLabel11.setText("Cidade : ");
 
@@ -117,6 +149,15 @@ public class TelaCadastrarFuncionario extends javax.swing.JInternalFrame {
         jLabel14.setText("Numero : ");
 
         jLabel15.setText("Complemento : ");
+
+        btnApagar.setText("Apagar");
+        btnApagar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnApagarActionPerformed(evt);
+            }
+        });
+
+        jLabel16.setText("Telefone :");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -151,10 +192,16 @@ public class TelaCadastrarFuncionario extends javax.swing.JInternalFrame {
                                         .addComponent(txtFuncao, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel11)
-                                            .addComponent(jLabel12))
-                                        .addGap(7, 7, 7)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(jLabel11)
+                                                    .addComponent(jLabel12))
+                                                .addGap(7, 7, 7))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                .addComponent(jLabel16)
+                                                .addGap(18, 18, 18)))
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(txtTelefone)
                                             .addComponent(txtCidade)
                                             .addComponent(txtRua, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE))))
                                 .addGap(0, 0, Short.MAX_VALUE)))
@@ -197,6 +244,8 @@ public class TelaCadastrarFuncionario extends javax.swing.JInternalFrame {
                                                 .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))))))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnApagar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnSalvar)
                         .addGap(18, 18, 18)
                         .addComponent(btnVoltar)
@@ -249,7 +298,13 @@ public class TelaCadastrarFuncionario extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jLabel15)
                         .addGap(4, 4, 4)
-                        .addComponent(txtComplemento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtComplemento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnVoltar)
+                            .addComponent(btnCancelar)
+                            .addComponent(btnSalvar)
+                            .addComponent(btnApagar)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(27, 27, 27)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -270,13 +325,12 @@ public class TelaCadastrarFuncionario extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel12)
-                            .addComponent(txtRua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnVoltar)
-                    .addComponent(btnCancelar)
-                    .addComponent(btnSalvar))
-                .addContainerGap(20, Short.MAX_VALUE))
+                            .addComponent(txtRua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel16))))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         pack();
@@ -295,12 +349,22 @@ public class TelaCadastrarFuncionario extends javax.swing.JInternalFrame {
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         if(JOptionPane.showConfirmDialog(this, "Deseja realmente salvar os dados?", "Confirmação", JOptionPane.YES_NO_OPTION)== 0){
-           JOptionPane.showMessageDialog(this, "Sim");
+           salvar();
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
+    private void btnApagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApagarActionPerformed
+        // TODO add your handling code here:
+        apagar();
+    }//GEN-LAST:event_btnApagarActionPerformed
+
+    private void cbUfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbUfActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbUfActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnApagar;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JButton btnVoltar;
@@ -312,6 +376,7 @@ public class TelaCadastrarFuncionario extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -334,5 +399,53 @@ public class TelaCadastrarFuncionario extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtRua;
     private javax.swing.JTextField txtSalario;
     private javax.swing.JPasswordField txtSenha;
+    private javax.swing.JTextField txtTelefone;
     // End of variables declaration//GEN-END:variables
+   @Override
+    protected void carregaObjeto() throws ViolacaoRegraNegocioException {
+            entidade.setNome( txtNome.getText() );
+            entidade.setCpf(txtCpf.getText());
+            entidade.setRg(txtRg.getText());
+            entidade.setCargo(txtFuncao.getText());
+            entidade.setSalario(BigDecimal.valueOf(Double.parseDouble((txtSalario.getText()))));
+            entidade.setSenha(txtSenha.getText());
+            entidade.setTelefone(txtTelefone.getText());
+            entidade.setEmail(txtEmail.getText());
+            /*entidade.setNascimento( df.parse( txtData.getText() ) );*/
+            a.setBairro(txtBairro.getText());
+            a.setCidade(txtCidade.getText());
+            a.setComplemento(txtComplemento.getText());
+            a.setEstado((long)cbUf.getSelectedIndex()+1);
+            a.setNumero(Long.parseLong(txtNumero.getText()));
+            a.setRua(txtRua.getText());
+            a.setCep(txtCep.getText());
+           // a.setEstado(txtEstado.getText());
+            if(entidade.getId() > 0){
+                a.setId(entidade.getEndereco());
+            }
+            endereco.Salvar(a);
+         
+    }
+
+    @Override
+    protected void carregaCampos() {
+       txtNome.setText(entidade.getNome());
+       txtCpf.setText(entidade.getCpf());
+       //txtData.setText( df.format(entidade.getNascimento()) );
+       txtRg.setText(entidade.getRg());
+       txtTelefone.setText(entidade.getTelefone());
+       txtSalario.setText(String.valueOf(entidade.getSalario()));
+       txtSenha.setText(entidade.getSenha());
+       txtFuncao.setText(entidade.getCargo());
+       txtEmail.setText(entidade.getEmail()); 
+       Endereco obj = RepositorioBuilder.getEnderecoRepositorio().Abrir(entidade.getEndereco());
+       txtBairro.setText(obj.getBairro());
+       txtCidade.setText(obj.getCidade());
+       txtComplemento.setText(obj.getComplemento());
+       txtNumero.setText(Long.toString(obj.getNumero()));
+       txtRua.setText(obj.getRua());
+       txtCep.setText(obj.getCep());
+       cbUf.setSelectedIndex(Integer.valueOf(String.valueOf(obj.getEstado()-1))); 
+    }
+
 }

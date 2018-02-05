@@ -3,11 +3,17 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/home/caio/Área%20de%20Trabalho/JCSistemas/Codigo-fonte/jcsistemas.aplicacao/src/br/edu/ifnmg/jcsistemas/aplicacao/NotaGenerico.java</file>
             <file>file:/home/caio/Área%20de%20Trabalho/JCSistemas/Codigo-fonte/jcsistemas.aplicacao/src/br/edu/ifnmg/jcsistemas/aplicacao/FuncionarioRepositorio.java</file>
             <file>file:/home/caio/Área%20de%20Trabalho/JCSistemas/Codigo-fonte/jcsistemas.aplicacao/src/jcsistemas/persistencia/NotaVendaDAO.java</file>
             <file>file:/home/caio/Área%20de%20Trabalho/JCSistemas/Codigo-fonte/jcsistemas.aplicacao/src/jcsistemas/persistencia/FuncionarioDAO.java</file>
             <file>file:/home/caio/Área%20de%20Trabalho/JCSistemas/Codigo-fonte/jcsistemas.aplicacao/src/br/edu/ifnmg/jcsistemas/aplicacao/NotaVenda.java</file>
+=======
+            <file>file:/home/victor/Área%20de%20Trabalho/jcMaster/JCSistemas/Codigo-fonte/jcsistemas.aplicacao/src/jcsistemas/persistencia/ClienteDAO.java</file>
+            <file>file:/home/victor/Área%20de%20Trabalho/jcMaster/JCSistemas/Codigo-fonte/jcsistemas.aplicacao/src/jcsistemas/persistencia/DAOGenerico.java</file>
+            <file>file:/home/victor/Área%20de%20Trabalho/jcMaster/JCSistemas/Codigo-fonte/jcsistemas.aplicacao/src/jcsistemas/persistencia/EnderecoDAO.java</file>
+>>>>>>> 09073197f3e627fbd0283f852df37191686aa577
         </group>
     </open-files>
 </project-private>

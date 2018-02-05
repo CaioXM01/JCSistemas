@@ -7,6 +7,7 @@ package jcsistemas.persistencia;
 
 import br.edu.ifnmg.jcsistemas.aplicacao.Funcionario;
 import br.edu.ifnmg.jcsistemas.aplicacao.FuncionarioRepositorio;
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -41,7 +42,7 @@ public class FuncionarioDAO extends DAOGenerico<Funcionario> implements Funciona
 
     @Override
     protected String consultaBuscar() {
-        return "select idFuncionario, nomeFuncionario, cpf, registro, dataNascimento, email, telefone, senha, cargo, salario endereco from funcionarios "; 
+        return "select idFuncionario, nomeFuncionario, cpf, registro, dataNascimento, email, telefone, senha, cargo, salario, endereco from funcionarios "; 
     }
 
     @Override
@@ -55,7 +56,7 @@ public class FuncionarioDAO extends DAOGenerico<Funcionario> implements Funciona
             consulta.setString(5, obj.getTelefone());
             consulta.setString(6, obj.getSenha());
             consulta.setString(7, obj.getCargo());
-            consulta.setDouble(8, obj.getSalario());
+            consulta.setBigDecimal(8, obj.getSalario());
             if(obj.getId() == 0)
             consulta.setLong(9, obj.getEndereco());
             //consulta.setDate(3, new Date(obj.getNascimento().getTime()));
@@ -89,7 +90,7 @@ public class FuncionarioDAO extends DAOGenerico<Funcionario> implements Funciona
         try {
             Funcionario obj = new Funcionario(
                 dados.getString("cargo"), 
-                dados.getDouble("salario"),  
+                dados.getBigDecimal("salario"),  
                 dados.getString("cpf"), 
                 dados.getString("registro"),
                 dados.getLong("idFuncionario"), 

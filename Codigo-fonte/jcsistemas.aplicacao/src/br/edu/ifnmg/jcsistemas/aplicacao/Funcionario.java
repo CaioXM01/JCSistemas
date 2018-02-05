@@ -5,6 +5,7 @@
  */
 package br.edu.ifnmg.jcsistemas.aplicacao;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 
@@ -14,14 +15,15 @@ import java.util.Date;
  */
 public class Funcionario extends PessoaFisica{
     private String cargo, senha;
-    private Double salario;
+    private BigDecimal salario;
 
-    public Funcionario(String cargo, Double salario, String cpf, String rg, long id, String nome, Date nascimento, long endereco, String email, String telefone, String senha) {
+    public Funcionario(String cargo, BigDecimal salario, String cpf, String rg, long id, String nome, Date nascimento, long endereco, String email, String telefone, String senha) {
         super(cpf, rg, id, nome, nascimento, endereco, email, telefone);
         this.cargo = cargo;
         this.salario = salario;
         this.senha = senha;
     }
+     public Funcionario(){}
 
 
     public String getCargo() {
@@ -39,11 +41,11 @@ public class Funcionario extends PessoaFisica{
     public void setSenha(String senha) {
         this.senha = senha;
     }
-    public Double getSalario() {
+    public BigDecimal getSalario() {
         return salario;
     }
 
-    public void setSalario(Double salario) {
+    public void setSalario(BigDecimal salario) {
         this.salario = salario;
     }
 
