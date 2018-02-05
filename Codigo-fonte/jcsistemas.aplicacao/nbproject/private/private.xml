@@ -3,9 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/victor/Área%20de%20Trabalho/jcMaster/JCSistemas/Codigo-fonte/jcsistemas.aplicacao/src/jcsistemas/persistencia/FornecedorDAO.java</file>
+            <file>file:/home/victor/Área%20de%20Trabalho/jcMaster/JCSistemas/Codigo-fonte/jcsistemas.aplicacao/src/jcsistemas/persistencia/ClienteDAO.java</file>
+            <file>file:/home/victor/Área%20de%20Trabalho/jcMaster/JCSistemas/Codigo-fonte/jcsistemas.aplicacao/src/jcsistemas/persistencia/DAOGenerico.java</file>
             <file>file:/home/victor/Área%20de%20Trabalho/jcMaster/JCSistemas/Codigo-fonte/jcsistemas.aplicacao/src/jcsistemas/persistencia/EnderecoDAO.java</file>
-            <file>file:/home/victor/Área%20de%20Trabalho/jcMaster/JCSistemas/Codigo-fonte/jcsistemas.aplicacao/src/jcsistemas/persistencia/FuncionarioDAO.java</file>
         </group>
     </open-files>
 </project-private>
