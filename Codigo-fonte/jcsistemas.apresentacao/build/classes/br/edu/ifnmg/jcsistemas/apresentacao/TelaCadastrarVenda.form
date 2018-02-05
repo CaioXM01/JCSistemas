@@ -154,6 +154,9 @@
               </AuxValues>
             </Component>
             <Component class="javax.swing.JFormattedTextField" name="txtData">
+              <Properties>
+                <Property name="editable" type="boolean" value="false"/>
+              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel2">
               <Properties>

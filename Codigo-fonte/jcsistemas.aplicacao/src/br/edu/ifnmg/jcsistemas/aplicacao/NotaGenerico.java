@@ -36,6 +36,11 @@ public class NotaGenerico {
         this.dataQuite = new Date();
         
     }
+    
+    public NotaGenerico(String generic){
+    
+    }
+    
 
     
   

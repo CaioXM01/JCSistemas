@@ -11,31 +11,31 @@ import java.util.Date;
 import java.util.Objects;
 
 
-public class NotaVenda extends NotaGenerico implements Entidade {
+public class NotaCompra extends NotaGenerico implements Entidade {
     
-    private Cliente cliente;
+    private Fornecedor fornecedor;
 
-     public NotaVenda() {
+     public NotaCompra() {
         
     }
-      public NotaVenda(String generic) {
+      public NotaCompra(String generic) {
           super("generic");
         
     }
      
-    public NotaVenda(Cliente cliente, long id, int parcelas, ArrayList itens, String descricao, String metodo, BigDecimal valorTotal, BigDecimal jurus, Date dataVenda, Date dataEmissao, Date dataQuite) {
+    public NotaCompra(Cliente cliente, long id, int parcelas, ArrayList itens, String descricao, String metodo, BigDecimal valorTotal, BigDecimal jurus, Date dataVenda, Date dataEmissao, Date dataQuite) {
         super(id, parcelas, itens, descricao, metodo, valorTotal, jurus, dataVenda, dataEmissao, dataQuite);
-        this.cliente = cliente;
+        this.fornecedor = fornecedor;
     }
 
    
 
-    public Cliente getCliente() {
-        return cliente;
+    public Fornecedor getFornecedor() {
+        return fornecedor;
     }
 
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
+    public void setFornecedor(Fornecedor fornecedor) {
+        this.fornecedor = fornecedor;
     }
 
     @Override
@@ -55,8 +55,8 @@ public class NotaVenda extends NotaGenerico implements Entidade {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final NotaVenda other = (NotaVenda) obj;
-        if (!Objects.equals(this.cliente, other.cliente)) {
+        final NotaCompra other = (NotaCompra) obj;
+        if (!Objects.equals(this.fornecedor, other.fornecedor)) {
             return false;
         }
         return true;
@@ -64,7 +64,7 @@ public class NotaVenda extends NotaGenerico implements Entidade {
 
     @Override
     public String toString() {
-        return "NotaVenda{" + "cliente=" + cliente + '}';
+        return "NotaCompra{" + "forncedor=" + fornecedor + '}';
     }
 
    

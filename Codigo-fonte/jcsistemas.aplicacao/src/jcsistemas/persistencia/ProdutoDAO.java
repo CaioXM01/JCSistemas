@@ -31,7 +31,7 @@ public class ProdutoDAO extends DAOGenerico<Produto> implements ProdutoRepositor
 
     @Override
     protected String consultaUpdate() {
-        return "update Clientes set nome = ?, cpf = ?, nascimento = ? where id = ?";
+        return "update produtos set nome=?, descricao=?, tipo=?, estoque=?, custo=?, venda=?  where id = ?";
     }
 
     @Override
@@ -51,13 +51,14 @@ public class ProdutoDAO extends DAOGenerico<Produto> implements ProdutoRepositor
             consulta.setString(1, obj.getNome());
             consulta.setString(2, obj.getDescricao());
             consulta.setString(3, obj.getTipo());
-            consulta.setBigDecimal(4, obj.getValorCusto());
-            consulta.setBigDecimal(5, obj.getValorVenda());
+            consulta.setLong(4, obj.getEstoque());
+            consulta.setBigDecimal(5, obj.getValorCusto());
+            consulta.setBigDecimal(6, obj.getValorVenda());
             
             /*consulta.setDate(3, new Date(obj.getNascimento().getTime()));*/
             
             if(obj.getId() > 0)
-                consulta.setLong(6, obj.getId());
+                consulta.setLong(7, obj.getId());
             
         } catch (SQLException ex) {
             Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);

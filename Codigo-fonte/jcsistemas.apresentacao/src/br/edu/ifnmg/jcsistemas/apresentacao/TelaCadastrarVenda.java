@@ -5,7 +5,6 @@
  */
 package br.edu.ifnmg.jcsistemas.apresentacao;
 
-
 import br.edu.ifnmg.jcsistemas.aplicacao.Cliente;
 import br.edu.ifnmg.jcsistemas.aplicacao.ClienteRepositorio;
 import br.edu.ifnmg.jcsistemas.aplicacao.NotaItem;
@@ -17,12 +16,14 @@ import br.edu.ifnmg.jcsistemas.aplicacao.ViolacaoRegraNegocioException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -31,23 +32,24 @@ import javax.swing.table.DefaultTableModel;
  */
 public class TelaCadastrarVenda extends FormEditar<NotaVenda> {
 
-     ClienteRepositorio clientes = RepositorioBuilder.getClienteRepositorio();
-     ProdutoRepositorio produtos = RepositorioBuilder.getProdutoRepositorio();
-    
+    ClienteRepositorio clientes = RepositorioBuilder.getClienteRepositorio();
+    ProdutoRepositorio produtos = RepositorioBuilder.getProdutoRepositorio();
+
     DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-    
+
     /**
      * Creates new form VendaEditar
      */
     public TelaCadastrarVenda() {
         initComponents();
-        
+
+        txtData.setText(df.format(new Date()));
         setRepositorio(RepositorioBuilder.getNotaVendaRepositorio());
-        
+
         List<Cliente> lista1 = clientes.Buscar(null);
         ComboBoxModel modelo1 = new DefaultComboBoxModel(lista1.toArray());
         cbxClientes.setModel(modelo1);
-        
+
         List<Produto> lista2 = produtos.Buscar(null);
         ComboBoxModel modelo2 = new DefaultComboBoxModel(lista2.toArray());
         cbxProdutos.setModel(modelo2);
@@ -92,6 +94,8 @@ public class TelaCadastrarVenda extends FormEditar<NotaVenda> {
 
         cbxClientes.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cbxClientes.setToolTipText("");
+
+        txtData.setEditable(false);
 
         jLabel2.setText("Data:");
 
@@ -288,7 +292,15 @@ public class TelaCadastrarVenda extends FormEditar<NotaVenda> {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+
+        for (NotaItem c : entidade.getItens()) {
+            c.getProduto().setEstoque(c.getProduto().getEstoque() - c.getQuantidade());
+            System.out.println(c.getProduto().getEstoque());
+            produtos.Salvar(c.getProduto());
+        }
         salvar();
+
+
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -299,17 +311,17 @@ public class TelaCadastrarVenda extends FormEditar<NotaVenda> {
         apagar();
     }//GEN-LAST:event_btnApagarActionPerformed
 
-    private void carregaItens(){
+    private void carregaItens() {
         DefaultTableModel modelo = new DefaultTableModel();
-            
+
         modelo.addColumn("ID");
         modelo.addColumn("Produto");
         modelo.addColumn("Quantidade");
         modelo.addColumn("Valor Unitário");
 
-        for(NotaItem c : entidade.getItens()){
+        for (NotaItem c : entidade.getItens()) {
             Vector valores = new Vector();
-            valores.add(c.getId());
+            valores.add(c.getProduto().getId());
             valores.add(c.getProduto().getNome());
             valores.add(c.getQuantidade());
             valores.add(c.getValorUnitario());
@@ -319,26 +331,28 @@ public class TelaCadastrarVenda extends FormEditar<NotaVenda> {
 
         tabItens.setModel(modelo);
     }
-    
+
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
         NotaItem item = new NotaItem();
-        item.setProduto((Produto)cbxProdutos.getSelectedItem());
+        item.setProduto((Produto) cbxProdutos.getSelectedItem());
         item.setQuantidade(Integer.parseInt(spnQuantidade.getValue().toString()));
-        
-        entidade.addItem(item);
-        
+        if (item.getQuantidade() < produtos.Abrir(item.getProduto().getId()).getEstoque()) {
+            entidade.addItem(item);
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Quantidade não suportada!");
+        }
         carregaCampos();
-        
+
     }//GEN-LAST:event_btnAdicionarActionPerformed
 
     @Override
     protected void carregaObjeto() throws ViolacaoRegraNegocioException {
-         try {
-             entidade.setCliente((Cliente)cbxClientes.getSelectedItem());
-             entidade.setDataVenda(df.parse(txtData.getText()));
-         } catch (ParseException ex) {
-             Logger.getLogger(TelaCadastrarVenda.class.getName()).log(Level.SEVERE, null, ex);
-         }
+        try {
+            entidade.setCliente((Cliente) cbxClientes.getSelectedItem());
+            entidade.setDataVenda(df.parse(txtData.getText()));
+        } catch (ParseException ex) {
+            Logger.getLogger(TelaCadastrarVenda.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
@@ -347,7 +361,7 @@ public class TelaCadastrarVenda extends FormEditar<NotaVenda> {
         cbxClientes.setSelectedItem(entidade.getCliente());
         //txtData.setText(df.format(entidade.getDataVenda()));
         lblValor.setText(entidade.getValorTotal().toString());
-        
+
         carregaItens();
     }
 
