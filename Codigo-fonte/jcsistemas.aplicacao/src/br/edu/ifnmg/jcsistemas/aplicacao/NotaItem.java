@@ -15,6 +15,7 @@ import java.util.Objects;
 public class NotaItem implements Entidade {
      private long id;
     private NotaVenda venda;
+    private NotaCompra compra;
     private Produto produto;
     private int quantidade;
     private BigDecimal valorUnitario;
@@ -29,6 +30,19 @@ public class NotaItem implements Entidade {
         this.quantidade = quantidade;
         this.valorUnitario = valorUnitario;
     }
+
+    public NotaItem(long id, NotaCompra compra, Produto produto, int quantidade, BigDecimal valorUnitario) {
+        this.id = id;
+        this.compra = compra;
+        this.produto = produto;
+        this.quantidade = quantidade;
+        this.valorUnitario = valorUnitario;
+    }
+
+    public NotaCompra getCompra() {
+        return compra;
+    }
+    
 
     @Override
     public long getId() {
@@ -114,6 +128,12 @@ public class NotaItem implements Entidade {
         }
         return true;
     }
+
+    public void setCompra(NotaCompra compra) {
+         this.compra = compra;
+    }
+    
+
     
     
 }

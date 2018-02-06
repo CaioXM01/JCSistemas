@@ -148,9 +148,16 @@ public class NotaGenerico {
             this.valorTotal = this.getValorTotal().add(item.getValorTotal());
         }
     }
+     public void addItem(NotaItem item,int x){
+        if(!this.itens.contains(item)){
+            item.setCompra((NotaCompra) this);
+            itens.add(item);
+            this.valorTotal = this.getValorTotal().add(item.getValorTotal());
+        }
+    }
     
     public void removeItem(NotaItem item){
-        if(this.itens.contains(item)){
+        if(!this.itens.contains(item)){
             itens.remove(item);
             this.valorTotal = this.valorTotal.subtract(item.getValorTotal());
         }

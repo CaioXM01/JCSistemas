@@ -36,7 +36,7 @@ public class ProdutoDAO extends DAOGenerico<Produto> implements ProdutoRepositor
 
     @Override
     protected String consultaDelete() {
-        return "delete from Clientes where id = ?";
+        return "delete from servicos where id = ?";
     }
 
     @Override

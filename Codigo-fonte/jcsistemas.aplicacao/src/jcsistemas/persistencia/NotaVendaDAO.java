@@ -49,7 +49,7 @@ public class NotaVendaDAO  extends DAOGenerico<NotaVenda> implements NotaVendaRe
 
     @Override
     protected String consultaDelete() {
-        return "delete vendas where id = ?";
+        return "delete from vendas where id = ?";
     }
 
     @Override
@@ -165,6 +165,7 @@ public class NotaVendaDAO  extends DAOGenerico<NotaVenda> implements NotaVendaRe
                     
                     consultaid.setLong(1, obj.getCliente().getId());
                     consultaid.setDate(2, new java.sql.Date(obj.getDataVenda().getTime()));
+                    consultaid.setBigDecimal(3, obj.getValorTotal());
                     
                     ResultSet retorno = consultaid.executeQuery();
                     

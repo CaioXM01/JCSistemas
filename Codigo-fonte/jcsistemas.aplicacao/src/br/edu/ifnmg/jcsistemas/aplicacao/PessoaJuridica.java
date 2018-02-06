@@ -65,5 +65,12 @@ public class PessoaJuridica extends Pessoa implements Entidade{
         }
         return true;
     }
+
+    @Override
+    public String toString() {
+        return super.getNome() + " CNPJ: " + cnpj + "     Insc. Estadual: " + inscriEstadual;
+    }
+    
+    
     
 }

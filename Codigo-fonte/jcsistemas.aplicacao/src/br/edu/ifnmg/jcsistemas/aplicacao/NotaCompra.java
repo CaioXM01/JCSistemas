@@ -23,7 +23,7 @@ public class NotaCompra extends NotaGenerico implements Entidade {
         
     }
      
-    public NotaCompra(Cliente cliente, long id, int parcelas, ArrayList itens, String descricao, String metodo, BigDecimal valorTotal, BigDecimal jurus, Date dataVenda, Date dataEmissao, Date dataQuite) {
+    public NotaCompra(Fornecedor fornecedor, long id, int parcelas, ArrayList itens, String descricao, String metodo, BigDecimal valorTotal, BigDecimal jurus, Date dataVenda, Date dataEmissao, Date dataQuite) {
         super(id, parcelas, itens, descricao, metodo, valorTotal, jurus, dataVenda, dataEmissao, dataQuite);
         this.fornecedor = fornecedor;
     }

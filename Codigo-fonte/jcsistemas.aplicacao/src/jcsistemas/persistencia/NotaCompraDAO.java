@@ -5,7 +5,6 @@
  */
 package jcsistemas.persistencia;
 
-import br.edu.ifnmg.jcsistemas.aplicacao.ClienteRepositorio;
 import br.edu.ifnmg.jcsistemas.aplicacao.FornecedorRepositorio;
 import br.edu.ifnmg.jcsistemas.aplicacao.NotaCompra;
 import br.edu.ifnmg.jcsistemas.aplicacao.NotaCompraRepositorio;
@@ -35,49 +34,49 @@ public class NotaCompraDAO  extends DAOGenerico<NotaCompra> implements NotaCompr
 
   @Override
     protected String consultaAbrir() {
-        return "select id, id_fornecedor, dataCompra, valorTotal from compras where id = ?";
+        return "select id, id_fornecedor, datacompra, valortotal from compras where id = ?";
     }
 
     @Override
     protected String consultaInsert() {
-        return "insert into compras(id_fornecedor, dataCompra, valorTotal) values(?,?,?)";
+        return "insert into compras(id_fornecedor, datacompra, valortotal) values(?,?,?)";
     }
 
     @Override
     protected String consultaUpdate() {
-        return "update vendas set id_cliente=?, datavenda=?, valortotal=? where id = ?";
+        return "update compras set id_fornecedor=?, datacompra=?, valortotal=? where id = ?";
     }
 
     @Override
     protected String consultaDelete() {
-        return "delete vendas where id = ?";
+        return "delete compras where id = ?";
     }
 
     @Override
     protected String consultaBuscar() {
-        return "select id, id_cliente, datavenda, valortotal from vendas ";
+        return "select id, id_fornecedor, datacompra, valortotal from compras ";
     }
 
     @Override
     protected void carregaParametros(NotaCompra obj, PreparedStatement consulta) {
         try {
-            consulta.setLong(1, obj.getCliente().getId());
-            consulta.setDate(2, new Date(obj.getDataVenda().getTime()));
+            consulta.setLong(1, obj.getFornecedor().getId());
+            consulta.setDate(2, new Date(obj.getDataEmissao().getTime()));
             consulta.setBigDecimal(3, obj.getValorTotal());
 
         } catch (SQLException ex) {
-            Logger.getLogger(NotaVendaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(NotaCompraDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     @Override
-    protected NotaVenda carregaObjeto(ResultSet dados) {
+    protected NotaCompra carregaObjeto(ResultSet dados) {
         try {
 
-            NotaVenda obj = new NotaVenda();
+            NotaCompra obj = new NotaCompra();
             obj.setId(dados.getLong("id"));
-            obj.setCliente(clientes.Abrir(dados.getLong("id_cliente")));
-            obj.setDataVenda(new java.util.Date(dados.getDate("datavenda").getTime()));
+            obj.setFornecedor(fornecedor.Abrir(dados.getLong("id_fornecedor")));
+            obj.setDataEmissao(new java.util.Date(dados.getDate("datacompra").getTime()));
             obj.setValorTotal(dados.getBigDecimal("valortotal"));
 
             obj.setItens((ArrayList) AbrirItens(obj));
@@ -85,16 +84,16 @@ public class NotaCompraDAO  extends DAOGenerico<NotaCompra> implements NotaCompr
             return obj;
 
         } catch (SQLException ex) {
-            Logger.getLogger(NotaVendaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(NotaCompraDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
 
-    private List<NotaItem> AbrirItens(NotaVenda obj) {
+    private List<NotaItem> AbrirItens(NotaCompra obj) {
         try {
             // Utilizando a conexão aberta, cria um Statement (comando)
             PreparedStatement consulta = BD.getConexao().prepareStatement(
-                    "select id, id_venda, id_produto, quantidade, valorunitario from vendasitens where id_venda = ?");
+                    "select id, id_compra, id_produto, quantidade, valorunitario from comprasitens where id_compra = ?");
 
             // Coloca o parâmetro da consulta (id)
             consulta.setLong(1, obj.getId());
@@ -110,49 +109,49 @@ public class NotaCompraDAO  extends DAOGenerico<NotaCompra> implements NotaCompr
             return itens;
 
         } catch (SQLException ex) {
-            Logger.getLogger(NotaVendaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(NotaCompraDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return null;
 
     }
 
-    private NotaItem carregaObjetoItem(NotaVenda venda, ResultSet dados) {
+    private NotaItem carregaObjetoItem(NotaCompra compra, ResultSet dados) {
         try {
             NotaItem item = new NotaItem();
             item.setId(dados.getLong("id"));
-            item.setVenda(venda);
+            item.setCompra(compra);
             item.setProduto(produtos.Abrir(dados.getLong("id_produto")));
             item.setQuantidade(dados.getInt("quantidade"));
             item.setValorUnitario(dados.getBigDecimal("valorunitario"));
 
             return item;
         } catch (SQLException ex) {
-            Logger.getLogger(NotaVendaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(NotaCompraDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
 
     @Override
-    protected String carregaParametrosBusca(NotaVenda obj) {
+    protected String carregaParametrosBusca(NotaCompra obj) {
         String sql = "";
         if (obj.getId() > 0) {
             sql = this.filtrarPor(sql, "id", Long.toString(obj.getId()));
         }
 
-        if (obj.getDataVenda() != null) {
-            sql = this.filtrarPor(sql, "datavenda", df.format(obj.getDataVenda()));
+        if (obj.getDataEmissao() != null) {
+            sql = this.filtrarPor(sql, "datacompra", df.format(obj.getDataEmissao()));
         }
 
-        if (obj.getCliente() != null) {
-            sql = this.filtrarPor(sql, "id_cliente", Long.toString(obj.getCliente().getId()));
+        if (obj.getFornecedor() != null) {
+            sql = this.filtrarPor(sql, "id_fornecedor", Long.toString(obj.getFornecedor().getId()));
         }
 
         return sql;
     }
 
     @Override
-    public boolean Salvar(NotaVenda obj) {
+    public boolean Salvar(NotaCompra obj) {
         if (super.Salvar(obj)) {
             
             long id = obj.getId();
@@ -160,11 +159,11 @@ public class NotaCompraDAO  extends DAOGenerico<NotaCompra> implements NotaCompr
             if(id == 0){
             
                 try {
-                    String pegaid = "select max(id) from vendas where id_cliente = ? and datavenda = ?";
+                    String pegaid = "select max(id) from compras where id_fornecedor = ? and datacompra = ?";
                     
                     PreparedStatement consultaid = BD.getConexao().prepareStatement(pegaid);
                     
-                    consultaid.setLong(1, obj.getCliente().getId());
+                    consultaid.setLong(1, obj.getFornecedor().getId());
                     consultaid.setDate(2, new java.sql.Date(obj.getDataVenda().getTime()));
                     
                     ResultSet retorno = consultaid.executeQuery();
@@ -174,14 +173,14 @@ public class NotaCompraDAO  extends DAOGenerico<NotaCompra> implements NotaCompr
                     id = retorno.getLong(1);
                     
                 } catch (SQLException ex) {
-                    Logger.getLogger(NotaVendaDAO.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(NotaCompraDAO.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             
             
             
             try {
-                String sql = "insert into vendasitens(id_venda, id_produto, quantidade, valorunitario) values(?,?,?,?)";
+                String sql = "insert into comprasitens(id_compra, id_produto, quantidade, valorunitario) values(?,?,?,?)";
 
                 for (NotaItem i : obj.getItens()) {
 
@@ -198,21 +197,10 @@ public class NotaCompraDAO  extends DAOGenerico<NotaCompra> implements NotaCompr
 
                 return true;
             } catch (SQLException ex) {
-                Logger.getLogger(NotaVendaDAO.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(NotaCompraDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         }
         return false;
     }
-
-    @Override
-    protected void carregaParametros(NotaCompra obj, PreparedStatement consulta) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    protected String carregaParametrosBusca(NotaCompra obj) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
 }

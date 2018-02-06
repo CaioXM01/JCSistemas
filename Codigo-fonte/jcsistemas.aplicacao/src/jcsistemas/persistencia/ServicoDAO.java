@@ -36,7 +36,7 @@ public class ServicoDAO extends DAOGenerico<Servico> implements ServicoRepositor
 
     @Override
     protected String consultaDelete() {
-        return "delete from Clientes where id = ?";
+        return "delete from servicos where id = ?";
     }
 
     @Override
